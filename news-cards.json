@@ -1,0 +1,55 @@
+{
+  "updated_at": "Evergreen cards ready",
+  "cards": [
+    {
+      "type": "evergreen",
+      "category": "Workflow automation",
+      "title": "Still repeating the same admin task every day?",
+      "problem": "Copying information between emails, spreadsheets and separate tools takes time and can introduce avoidable mistakes.",
+      "solution": "Map the current steps first. Then test a simple form, shared tracker or low-code automation for one repeatable task. Keep a manual review step until the process is reliable.",
+      "source_name": "",
+      "source_url": "",
+      "published_at": "Evergreen guide"
+    },
+    {
+      "type": "evergreen",
+      "category": "Website & lead generation",
+      "title": "Visitors reach your website but do not enquire",
+      "problem": "A website can look polished yet leave visitors unsure what you offer, who it is for, or what they should do next.",
+      "solution": "Make the main service and target customer clear above the fold. Add one prominent contact action, explain the next step, and test the enquiry journey on mobile.",
+      "source_name": "",
+      "source_url": "",
+      "published_at": "Evergreen guide"
+    },
+    {
+      "type": "evergreen",
+      "category": "Project delivery",
+      "title": "Project updates are scattered across chats and emails",
+      "problem": "When requirements, decisions and progress live in multiple places, teams can miss changes or disagree about what is complete.",
+      "solution": "Create a single shared project tracker with owner, task, status, due date, blocker and evidence of completion. Agree on a regular update rhythm with the client and delivery team.",
+      "source_name": "",
+      "source_url": "",
+      "published_at": "Evergreen guide"
+    },
+    {
+      "type": "evergreen",
+      "category": "IT resource planning",
+      "title": "Your team has a skills gap but no time to recruit blindly",
+      "problem": "A vague role description can attract mismatched applicants and slow down project delivery.",
+      "solution": "Write down the deliverables, must-have skills, expected availability and interview task before searching. Evaluate candidates against the same criteria and verify relevant work samples.",
+      "source_name": "",
+      "source_url": "",
+      "published_at": "Evergreen guide"
+    },
+    {
+      "type": "evergreen",
+      "category": "Cybersecurity basics",
+      "title": "Small businesses often postpone basic security checks",
+      "problem": "Shared passwords, outdated software and missing backups can turn a minor incident into a costly interruption.",
+      "solution": "Start with multi-factor authentication, unique passwords in a reputable password manager, automatic updates and a tested backup. Assign an owner and review access regularly.",
+      "source_name": "",
+      "source_url": "",
+      "published_at": "Evergreen guide"
+    }
+  ]
+}
