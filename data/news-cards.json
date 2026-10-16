@@ -1,0 +1,51 @@
+
+{
+  "updated_at": "17 October 2026",
+  "cards": [
+    {
+      "type": "evergreen",
+      "category": "Business Automation",
+      "title": "Reduce repetitive manual work",
+      "problem": "Teams spend too much time on repetitive tasks, leaving less time for customers and business growth.",
+      "solution": "Identify one recurring task and test a simple workflow using a form, spreadsheet or automation tool.",
+      "published_at": "17 October 2026",
+      "source_url": ""
+    },
+    {
+      "type": "evergreen",
+      "category": "Website Development",
+      "title": "Turn website visits into enquiries",
+      "problem": "Visitors may leave a business website without understanding what the company offers or how to make contact.",
+      "solution": "Make your services clear, add a visible enquiry button and ensure the contact form works well on mobile devices.",
+      "published_at": "17 October 2026",
+      "source_url": ""
+    },
+    {
+      "type": "evergreen",
+      "category": "Project Management",
+      "title": "Make project progress visible",
+      "problem": "Clients and teams can lose track of completed work, pending tasks and upcoming deadlines.",
+      "solution": "Use a shared task board with task owners, due dates, status updates and agreed milestones.",
+      "published_at": "17 October 2026",
+      "source_url": ""
+    },
+    {
+      "type": "evergreen",
+      "category": "Business Software",
+      "title": "Reduce duplicate data entry",
+      "problem": "Entering the same information into multiple tools can waste time and introduce errors.",
+      "solution": "Map where the information is repeated and investigate whether a simple integration or shared system can reduce duplication.",
+      "published_at": "17 October 2026",
+      "source_url": ""
+    },
+    {
+      "type": "evergreen",
+      "category": "IT Resource Support",
+      "title": "Choose the right technical resource",
+      "problem": "Hiring without a clear scope can lead to mismatched skills, unclear responsibilities and delayed delivery.",
+      "solution": "Write down the required skills, deliverables, expected availability and communication requirements before selecting a developer.",
+      "published_at": "17 October 2026",
+      "source_url": ""
+    }
+  ]
+}
