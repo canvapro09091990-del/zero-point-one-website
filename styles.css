@@ -299,3 +299,47 @@ section {
     will-change: auto;
   }
 }
+
+/* Seamless carousel: two equal-width groups */
+#insight-grid .insight-track {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  width: max-content;
+  gap: 20px;
+  animation: zpo-insight-scroll 45s linear infinite;
+}
+
+#insight-grid .insight-group {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: stretch;
+  gap: 20px;
+  width: max-content;
+}
+
+#insight-grid .insight-group .insight-card {
+  flex: 0 0 calc((min(1100px, 100vw - 60px) - 40px) / 3);
+  width: auto;
+  min-width: 0;
+}
+
+@keyframes zpo-insight-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-50% - 10px));
+  }
+}
+
+@media (max-width: 700px) {
+  #insight-grid .insight-track,
+  #insight-grid .insight-group {
+    gap: 14px;
+  }
+
+  #insight-grid .insight-group .insight-card {
+    flex-basis: min(82vw, 360px);
+  }
+}
