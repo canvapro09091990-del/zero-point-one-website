@@ -245,6 +245,22 @@ function renderBusinessInsightCard(card) {
     getInsightService(card)
   );
 
+  const imageUrl = getSafeInsightUrl(card.image_url || '');
+
+  const imageHtml = imageUrl
+    ? `
+      <img
+        class="insight-image"
+        src="${escapeInsightHtml(imageUrl)}"
+        alt="${title}"
+        loading="lazy"
+        decoding="async"
+        referrerpolicy="no-referrer"
+        onerror="this.hidden=true"
+      >
+    `
+    : '';
+
   const cardLabel = isNews
     ? 'LATEST NEWS'
     : 'PRACTICAL GUIDE';
@@ -278,8 +294,11 @@ function renderBusinessInsightCard(card) {
       `
     : '';
 
+  
   return `
     <article class="insight-card">
+
+      ${imageHtml}
 
       <div class="insight-type">
         ${category}
