@@ -125,10 +125,10 @@ async function loadBusinessInsights() {
         : 'PRACTICAL GUIDE';
 
       const sourceLink = isNews && sourceUrl
-        ? `<a class="insight-source" href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener noreferrer">Read original article ↗</a>`
-        : isNews
-          ? '<span class="evergreen-badge">Original link unavailable</span>'
-          : '<span class="evergreen-badge">PRACTICAL GUIDE</span>';
+  ? `<a class="insight-source" href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener noreferrer">Read original article ↗</a>`
+  : isNews
+    ? '<span class="evergreen-badge">Original link unavailable</span>'
+    : '';
 
       const publisher = isNews && card.publisher
         ? `<span class="insight-publisher">${escapeHtml(card.publisher)}</span>`
