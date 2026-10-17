@@ -1,3 +1,4 @@
+
 const menuButton = document.querySelector('.menu-toggle');
 const nav = document.querySelector('.nav');
 
@@ -111,7 +112,9 @@ async function loadBusinessInsights() {
     }
 
     grid.innerHTML = cards.map(card => {
-      const isNews = String(card.type || '').toLowerCase() === 'news';
+      const isNews =
+        String(card.type || '').toLowerCase() === 'news';
+
       const sourceUrl = safeUrl(card.source_url);
 
       const dateText = isNews
@@ -132,7 +135,8 @@ async function loadBusinessInsights() {
         ? `<span class="insight-publisher">${escapeHtml(card.publisher)}</span>`
         : '';
 
-      // Choose a relevant enquiry service for each card.
+      // Match cybersecurity before other development services.
+      // cardText is normalized to lowercase for consistent matching.
       const cardText = [
         card.category || '',
         card.title || '',
@@ -142,18 +146,27 @@ async function loadBusinessInsights() {
 
       let service = 'Other enquiry';
 
-if (/cybersecurity|security|hack|malware|phishing|ransomware|vulnerability/.test(cardText)) {
-  service = 'Other enquiry';
-} else if (/mobile app|mobile application|android|ios/.test(cardText)) {
-  service = 'Mobile application';
-} else if (/website|web development|web application/.test(cardText)) {
-  service = 'Website development';
-} else if (/software|developer|programming|code/.test(cardText)) {
-  service = 'Software development';
-} else if (/automation|workflow|repetitive task/.test(cardText)) {
-  service = 'Managed project support';
-}
-      const enquiryUrl = '#contact';
+      if (
+        /cybersecurity|security|hack|malware|phishing|ransomware|vulnerability/i.test(cardText)
+      ) {
+        service = 'Other enquiry';
+      } else if (
+        /mobile app|mobile application|android|ios/i.test(cardText)
+      ) {
+        service = 'Mobile application';
+      } else if (
+        /website|web development|web application/i.test(cardText)
+      ) {
+        service = 'Website development';
+      } else if (
+        /software|programming|code/i.test(cardText)
+      ) {
+        service = 'Software development';
+      } else if (
+        /automation|workflow|repetitive task/i.test(cardText)
+      ) {
+        service = 'Managed project support';
+      }
 
       return `
         <article class="insight-card">
@@ -177,12 +190,12 @@ if (/cybersecurity|security|hack|malware|phishing|ransomware|vulnerability/.test
           </div>
 
           <a
-  class="insight-enquiry"
-  href="#contact"
-  data-service="${service}"
->
-  Need help with this? ↗
-</a>
+            class="insight-enquiry"
+            href="#contact"
+            data-service="${service}"
+          >
+            Need help with this? ↗
+          </a>
         </article>
       `;
     }).join('');
@@ -191,45 +204,37 @@ if (/cybersecurity|security|hack|malware|phishing|ransomware|vulnerability/.test
       ? 'Updated ' + payload.updated_at
       : 'Business insights';
 
-    // Preselect the service requested by a visitor arriving from a card.
+    // Select the matching contact-form service when a card is clicked.
     const needField = document.getElementById('need');
+    const contactSection = document.getElementById('contact');
 
-   function connectEnquiryLinks() {
-  const needField = document.getElementById('need');
-
-  document.querySelectorAll('.insight-enquiry').forEach(link => {
-    link.addEventListener('click', function () {
-      const requestedService = this.dataset.service;
-
-      if (!needField || !requestedService) return;
-
-      const matchingOption = Array.from(needField.options).find(
-        option =>
-          option.value === requestedService ||
-          option.text.trim() === requestedService
-      );
-
-      if (matchingOption) {
-        needField.value = matchingOption.value;
-      }
-    });
-  });
-}
-
-selectEnquiryService();
-
-    document.querySelectorAll('.insight-enquiry').forEach(link => {
+    grid.querySelectorAll('.insight-enquiry').forEach(link => {
       link.addEventListener('click', () => {
-        const href = link.getAttribute('href');
-        const queryStart = href.indexOf('?');
+        const requestedService = link.dataset.service;
 
-        if (queryStart !== -1) {
-          const params = new URLSearchParams(href.slice(queryStart + 1));
-          const requestedService = params.get('need');
+        if (!needField || !requestedService) return;
 
-          if (needField && requestedService) {
-            needField.value = requestedService;
-          }
+        const matchingOption = Array.from(needField.options).find(
+          option =>
+            option.value.trim() === requestedService ||
+            option.text.trim() === requestedService
+        );
+
+        if (matchingOption) {
+          needField.value = matchingOption.value;
+
+          // Notify any other code listening for changes to the dropdown.
+          needField.dispatchEvent(
+            new Event('change', { bubbles: true })
+          );
+        }
+
+        // Ensure the visitor reaches the contact form.
+        if (contactSection) {
+          contactSection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
         }
       });
     });
@@ -248,13 +253,51 @@ selectEnquiryService();
         <div class="insight-footer">
           <span class="evergreen-badge">PRACTICAL GUIDE</span>
         </div>
-        <a class="insight-enquiry" href="#contact">
+        <a
+          class="insight-enquiry"
+          href="#contact"
+          data-service="Managed project support"
+        >
           Need help with this? ↗
         </a>
       </article>
     `;
 
-    updated.textContent = 'Showing a practical guide while the latest cards load.';
+    updated.textContent =
+      'Showing a practical guide while the latest cards load.';
+
+    // Keep the fallback guide link working as well.
+    const fallbackLink = grid.querySelector('.insight-enquiry');
+    const contactSection = document.getElementById('contact');
+    const needField = document.getElementById('need');
+
+    if (fallbackLink) {
+      fallbackLink.addEventListener('click', () => {
+        if (needField) {
+          const requestedService = fallbackLink.dataset.service;
+
+          const matchingOption = Array.from(needField.options).find(
+            option =>
+              option.value.trim() === requestedService ||
+              option.text.trim() === requestedService
+          );
+
+          if (matchingOption) {
+            needField.value = matchingOption.value;
+            needField.dispatchEvent(
+              new Event('change', { bubbles: true })
+            );
+          }
+        }
+
+        if (contactSection) {
+          contactSection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    }
   }
 }
 
