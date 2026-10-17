@@ -194,24 +194,26 @@ if (/cybersecurity|security|hack|malware|phishing|ransomware|vulnerability/.test
     // Preselect the service requested by a visitor arriving from a card.
     const needField = document.getElementById('need');
 
-    function selectEnquiryService() {
-  const hash = window.location.hash;
-  const queryStart = hash.indexOf('&need=');
+   function connectEnquiryLinks() {
+  const needField = document.getElementById('need');
 
-  if (queryStart === -1 || !needField) return;
+  document.querySelectorAll('.insight-enquiry').forEach(link => {
+    link.addEventListener('click', function () {
+      const requestedService = this.dataset.service;
 
-  const requestedService = decodeURIComponent(
-    hash.slice(queryStart + '&need='.length)
-  );
+      if (!needField || !requestedService) return;
 
-  const option = Array.from(needField.options).find(
-    item => item.value === requestedService ||
-            item.text === requestedService
-  );
+      const matchingOption = Array.from(needField.options).find(
+        option =>
+          option.value === requestedService ||
+          option.text.trim() === requestedService
+      );
 
-  if (option) {
-    needField.value = option.value;
-  }
+      if (matchingOption) {
+        needField.value = matchingOption.value;
+      }
+    });
+  });
 }
 
 selectEnquiryService();
