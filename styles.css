@@ -384,3 +384,23 @@ section {
 #insight-grid .insight-card:hover {
   color: #f5f5f5 !important;
 }
+
+/* Final carousel animation override */
+#insight-grid .insight-track {
+  gap: 0;
+  animation-name: zpo-insight-scroll;
+  animation-duration: var(--carousel-duration, 45s);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes zpo-insight-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(
+      calc(0px - var(--loop-distance, 1800px))
+    );
+  }
+}
