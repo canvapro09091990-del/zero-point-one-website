@@ -243,27 +243,57 @@ async function loadBusinessInsights() {
 
     
 
-/* Two identical groups for a seamless carousel loop */
+
+/* Manual article slider — no automatic movement */
 grid.innerHTML = `
-  <div class="insight-track">
-    <div class="insight-group">
-      ${cardsHtml}
-    </div>
-    <div class="insight-group" aria-hidden="true">
+  <button
+    class="insight-arrow insight-prev"
+    type="button"
+    aria-label="Previous articles"
+    title="Previous articles"
+  >&#8592;</button>
+
+  <div class="insight-viewport" aria-label="Business insights">
+    <div class="insight-track">
       ${cardsHtml}
     </div>
   </div>
+
+  <button
+    class="insight-arrow insight-next"
+    type="button"
+    aria-label="Next articles"
+    title="Next articles"
+  >&#8594;</button>
 `;
 
 const track = grid.querySelector('.insight-track');
-const groups = grid.querySelectorAll('.insight-group');
-const firstGroup = groups[0];
-const duplicateGroup = groups[1];
+const viewport = grid.querySelector('.insight-viewport');
+const previousButton = grid.querySelector('.insight-prev');
+const nextButton = grid.querySelector('.insight-next');
 
-/* Keep duplicate links out of keyboard navigation. */
-duplicateGroup.querySelectorAll('a').forEach(link => {
-  link.setAttribute('tabindex', '-1');
+function scrollArticles(direction) {
+  const card = track.querySelector('.insight-card');
+  if (!card) return;
+
+  const styles = window.getComputedStyle(track);
+  const gap = parseFloat(styles.columnGap) || 0;
+  const distance = card.getBoundingClientRect().width + gap;
+
+  viewport.scrollBy({
+    left: direction * distance,
+    behavior: 'smooth'
+  });
+}
+
+previousButton.addEventListener('click', () => {
+  scrollArticles(-1);
 });
+
+nextButton.addEventListener('click', () => {
+  scrollArticles(1);
+});
+
 
 /* Measure one complete group, including its trailing padding. */
 let carouselResizeObserver;
