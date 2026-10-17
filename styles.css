@@ -404,3 +404,191 @@ section {
     );
   }
 }
+
+/* Zero Point One — manual article slider */
+#insight-grid {
+  display: grid !important;
+  grid-template-columns: 40px minmax(0, 1fr) 40px !important;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 28px auto;
+  overflow: visible;
+}
+
+#insight-grid .insight-viewport {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+#insight-grid .insight-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+#insight-grid .insight-track {
+  display: flex !important;
+  flex-flow: row nowrap !important;
+  align-items: stretch;
+  gap: 16px;
+  width: 100%;
+  min-width: 0;
+  animation: none !important;
+  transform: none !important;
+}
+
+#insight-grid .insight-card {
+  box-sizing: border-box;
+  flex: 0 0 calc((100% - 32px) / 3) !important;
+  min-width: 0;
+  padding: 16px;
+  margin: 0;
+  height: auto;
+  min-height: 0;
+  align-self: stretch;
+  overflow-wrap: anywhere;
+  scroll-snap-align: start;
+  border: 1px solid #383838;
+  border-radius: 12px;
+  background: #111;
+  color: #f5f5f5;
+}
+
+#insight-grid .insight-image {
+  display: block;
+  width: 100%;
+  height: 145px;
+  margin: 0 0 14px;
+  object-fit: cover;
+  object-position: center;
+  filter: grayscale(100%);
+  border-radius: 6px;
+  background: #222;
+}
+
+#insight-grid .insight-type {
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #aaa;
+}
+
+#insight-grid .insight-card h3 {
+  margin: 8px 0 14px;
+  font-size: 19px;
+  line-height: 1.35;
+  color: #fff;
+}
+
+#insight-grid .insight-label {
+  margin: 12px 0 5px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #aaa;
+}
+
+#insight-grid .insight-card p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: #ddd;
+}
+
+#insight-grid .insight-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 14px;
+  font-size: 11px;
+  color: #aaa;
+}
+
+#insight-grid .insight-enquiry,
+#insight-grid .insight-source {
+  display: inline-block;
+  margin-top: 14px;
+  font-size: 12px;
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+#insight-grid .insight-arrow {
+  grid-row: 1;
+  position: relative;
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 1px solid #555;
+  border-radius: 50%;
+  background: #111;
+  color: #fff;
+  font-size: 23px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+#insight-grid .insight-prev {
+  grid-column: 1;
+}
+
+#insight-grid .insight-next {
+  grid-column: 3;
+}
+
+#insight-grid .insight-arrow:hover {
+  background: #fff;
+  color: #111;
+}
+
+#insight-grid .insight-arrow:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+@media (max-width: 700px) {
+  #insight-grid {
+    grid-template-columns: 32px minmax(0, 1fr) 32px !important;
+    gap: 8px;
+    margin: 20px auto;
+  }
+
+  #insight-grid .insight-arrow {
+    width: 32px;
+    height: 32px;
+    font-size: 19px;
+  }
+
+  #insight-grid .insight-track {
+    gap: 12px;
+  }
+
+  #insight-grid .insight-card {
+    flex-basis: 100% !important;
+    padding: 14px;
+  }
+
+  #insight-grid .insight-image {
+    height: 135px;
+  }
+
+  #insight-grid .insight-card h3 {
+    font-size: 17px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #insight-grid .insight-viewport {
+    scroll-behavior: auto;
+  }
+}
