@@ -1,3 +1,4 @@
+
 {
   "updated_at": "Evergreen cards ready",
   "cards": [
@@ -9,7 +10,8 @@
       "solution": "Map the current steps first. Then test a simple form, shared tracker or low-code automation for one repeatable task. Keep a manual review step until the process is reliable.",
       "source_name": "",
       "source_url": "",
-      "published_at": "Evergreen guide"
+      "published_at": "Evergreen guide",
+      "image_url": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=700&q=80"
     },
     {
       "type": "evergreen",
@@ -19,7 +21,8 @@
       "solution": "Make the main service and target customer clear above the fold. Add one prominent contact action, explain the next step, and test the enquiry journey on mobile.",
       "source_name": "",
       "source_url": "",
-      "published_at": "Evergreen guide"
+      "published_at": "Evergreen guide",
+      "image_url": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=700&q=80"
     },
     {
       "type": "evergreen",
@@ -29,7 +32,8 @@
       "solution": "Create a single shared project tracker with owner, task, status, due date, blocker and evidence of completion. Agree on a regular update rhythm with the client and delivery team.",
       "source_name": "",
       "source_url": "",
-      "published_at": "Evergreen guide"
+      "published_at": "Evergreen guide",
+      "image_url": "https://images.unsplash.com/photo-1611224923853-80b023f02d71?auto=format&fit=crop&w=700&q=80"
     },
     {
       "type": "evergreen",
@@ -39,7 +43,8 @@
       "solution": "Write down the deliverables, must-have skills, expected availability and interview task before searching. Evaluate candidates against the same criteria and verify relevant work samples.",
       "source_name": "",
       "source_url": "",
-      "published_at": "Evergreen guide"
+      "published_at": "Evergreen guide",
+      "image_url": "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=700&q=80"
     },
     {
       "type": "evergreen",
@@ -49,7 +54,8 @@
       "solution": "Start with multi-factor authentication, unique passwords in a reputable password manager, automatic updates and a tested backup. Assign an owner and review access regularly.",
       "source_name": "",
       "source_url": "",
-      "published_at": "Evergreen guide"
+      "published_at": "Evergreen guide",
+      "image_url": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=700&q=80"
     }
   ]
 }
