@@ -176,9 +176,13 @@ if (/cybersecurity|security|hack|malware|phishing|ransomware|vulnerability/.test
             ${sourceLink}
           </div>
 
-          <a class="insight-enquiry" href="${enquiryUrl}">
-            Need help with this? ↗
-          </a>
+          <a
+  class="insight-enquiry"
+  href="#contact"
+  data-service="${service}"
+>
+  Need help with this? ↗
+</a>
         </article>
       `;
     }).join('');
