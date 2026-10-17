@@ -155,7 +155,7 @@ async function loadBusinessInsights() {
       }
 
       const enquiryUrl =
-        '#contact?need=' + encodeURIComponent(service);
+  '#contact&need=' + encodeURIComponent(service);
 
       return `
         <article class="insight-card">
