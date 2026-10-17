@@ -159,9 +159,8 @@ async function loadBusinessInsights() {
     }).join('');
 
     updated.textContent = payload.updated_at
-      ? 'Updated ' + payload.updated_at +
-        ' · News links are credited to their original publishers.'
-      : 'Business insights · News links are credited to their original publishers.';
+  ? 'Updated ' + payload.updated_at
+  : 'Business insights';
 
   } catch (error) {
     grid.innerHTML = `
