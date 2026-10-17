@@ -153,8 +153,7 @@ if (/cybersecurity|security|hack|malware|phishing|ransomware|vulnerability/.test
 } else if (/automation|workflow|repetitive task/.test(cardText)) {
   service = 'Managed project support';
 }
-      const enquiryUrl =
-  '#contact&need=' + encodeURIComponent(service);
+      const enquiryUrl = '#contact';
 
       return `
         <article class="insight-card">
