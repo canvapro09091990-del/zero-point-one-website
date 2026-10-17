@@ -343,3 +343,44 @@ section {
     flex-basis: min(82vw, 360px);
   }
 }
+
+/* Fix invisible text on moving insight cards */
+#insight-grid .insight-track,
+#insight-grid .insight-group {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+#insight-grid .insight-card,
+#insight-grid .insight-card * {
+  visibility: visible;
+  opacity: 1;
+}
+
+#insight-grid .insight-card {
+  color: #f5f5f5 !important;
+  background: #0d0d0d !important;
+  -webkit-text-fill-color: initial;
+}
+
+#insight-grid .insight-card h3,
+#insight-grid .insight-card p,
+#insight-grid .insight-card .insight-type,
+#insight-grid .insight-card .insight-label,
+#insight-grid .insight-card .insight-footer,
+#insight-grid .insight-card .insight-enquiry {
+  color: #f5f5f5 !important;
+}
+
+#insight-grid .insight-card p {
+  color: #c6c6c6 !important;
+}
+
+#insight-grid .insight-card .insight-type,
+#insight-grid .insight-card .insight-footer {
+  color: #aaa !important;
+}
+
+#insight-grid .insight-card:hover {
+  color: #f5f5f5 !important;
+}
