@@ -1,39 +1,498 @@
-/* Zero Point One — site interactions and manual business-insights slider */
 
-const menuButton = document.querySelector('.menu-toggle');
-const nav = document.querySelector('.nav');
+/* Zero Point One — site interactions and reliable manual insights slider */
 
-if (menuButton && nav) {
-  menuButton.setAttribute('aria-expanded', 'false');
+(() => {
+  'use strict';
 
-  menuButton.addEventListener('click', () => {
-    const open = nav.classList.toggle('open');
-    menuButton.setAttribute('aria-expanded', String(open));
-  });
+  /* Mobile navigation */
+  const menuButton = document.querySelector('.menu-toggle');
+  const nav = document.querySelector('.nav');
 
-  nav.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      nav.classList.remove('open');
-      menuButton.setAttribute('aria-expanded', 'false');
+  if (menuButton && nav) {
+    menuButton.setAttribute('aria-expanded', 'false');
+
+    menuButton.addEventListener('click', () => {
+      const isOpen = nav.classList.toggle('open');
+      menuButton.setAttribute('aria-expanded', String(isOpen));
     });
-  });
-}
 
-const year = document.getElementById('year');
-if (year) year.textContent = new Date().getFullYear();
+    nav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('open');
+        menuButton.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
 
-/* WhatsApp enquiry form */
-const enquiryForm = document.getElementById('enquiry-form');
+  /* Footer year */
+  const year = document.getElementById('year');
+  if (year) year.textContent = new Date().getFullYear();
 
-if (enquiryForm) {
-  enquiryForm.addEventListener('submit', event => {
-    event.preventDefault();
+  /* WhatsApp enquiry form */
+  const enquiryForm = document.getElementById('enquiry-form');
 
-    const number = (
-      window.ZPO_CONFIG &&
-      window.ZPO_CONFIG.whatsappNumber || ''
-    ).replace(/\D/g, '');
+  if (enquiryForm) {
+    enquiryForm.addEventListener('submit', event => {
+      event.preventDefault();
 
+      const status = document.getElementById('form-status');
+      const number = String(
+        window.ZPO_CONFIG?.whatsappNumber || ''
+      ).replace(/\D/g, '');
+
+      if (
+        !number ||
+        number === '91XXXXXXXXXX' ||
+        number.length < 10
+      ) {
+        if (status) {
+          status.textContent =
+            'WhatsApp is not configured. Please check config.js.';
+        }
+        return;
+      }
+
+      const data = new FormData(enquiryForm);
+      const message = [
+        'Hello Zero Point One, I would like to discuss an enquiry.',
+        '',
+        'Name: ' + (data.get('name') || ''),
+        'Company: ' + (data.get('company') || 'Not provided'),
+        'Requirement: ' + (data.get('need') || ''),
+        'Project details: ' + (data.get('message') || '')
+      ].join('\n');
+
+      const whatsappUrl =
+        'https://wa.me/' + number +
+        '?text=' + encodeURIComponent(message);
+
+      const opened = window.open(
+        whatsappUrl,
+        '_blank',
+        'noopener,noreferrer'
+      );
+
+      if (status) {
+        status.textContent = opened
+          ? 'WhatsApp opened with your enquiry prepared. Review it and press Send in WhatsApp.'
+          : 'If WhatsApp did not open, allow pop-ups or open WhatsApp and send your enquiry.';
+      }
+    });
+  }
+
+  /* Shared helpers */
+  const escapeHtml = value =>
+    String(value ?? '').replace(/[&<>"']/g, character => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    })[character]);
+
+  const safeHttpUrl = value => {
+    if (!value) return '';
+
+    try {
+      const url = new URL(String(value), window.location.href);
+      return ['http:', 'https:'].includes(url.protocol)
+        ? url.href
+        : '';
+    } catch {
+      return '';
+    }
+  };
+
+  /* Topic-specific fallback photos */
+  const fallbackImages = [
+    {
+      match: /cybersecurity|security|hack|malware|phishing|ransomware|vulnerability/i,
+      url: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=900&q=80'
+    },
+    {
+      match: /website|web development|lead generation/i,
+      url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80'
+    },
+    {
+      match: /automation|workflow|technology|software/i,
+      url: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80'
+    },
+    {
+      match: /project|management|delivery/i,
+      url: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=900&q=80'
+    },
+    {
+      match: /resource|recruit|team|skills/i,
+      url: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=900&q=80'
+    }
+  ];
+
+  /* Always-available monochrome image if a photo fails */
+  const makeFallbackGraphic = (category, title) => {
+    const safeCategory = escapeHtml(
+      String(category || 'BUSINESS & TECHNOLOGY').slice(0, 42)
+    );
+    const safeTitle = escapeHtml(
+      String(title || 'Business insights').slice(0, 70)
+    );
+
+    const svg = `
+      <svg xmlns="http://www.w3.org/2000/svg"
+        width="900" height="506" viewBox="0 0 900 506">
+        <rect width="900" height="506" fill="#101010"/>
+        <g stroke="#393939" stroke-width="1">
+          ${Array.from({ length: 10 }, (_, i) =>
+            `<path d="M${i * 100} 0 V506"/>`).join('')}
+          ${Array.from({ length: 6 }, (_, i) =>
+            `<path d="M0 ${i * 100} H900"/>`).join('')}
+        </g>
+        <circle cx="700" cy="210" r="110"
+          fill="none" stroke="#777" stroke-width="2"/>
+        <circle cx="700" cy="210" r="72"
+          fill="none" stroke="#555" stroke-width="2"/>
+        <circle cx="700" cy="210" r="30" fill="#ddd"/>
+        <path d="M550 210 H660 M700 60 V100 M700 320 V365 M750 210 H830"
+          stroke="#ddd" stroke-width="3" fill="none"/>
+        <text x="42" y="65" fill="#bbb" font-family="Arial,sans-serif"
+          font-size="19" letter-spacing="3">${safeCategory}</text>
+        <path d="M42 88 H390" stroke="#666" stroke-width="2"/>
+        <foreignObject x="42" y="125" width="470" height="250">
+          <div xmlns="http://www.w3.org/1999/xhtml"
+            style="font:bold 36px Arial,sans-serif;color:#fff;line-height:1.2;overflow-wrap:anywhere">
+            ${safeTitle}
+          </div>
+        </foreignObject>
+        <text x="42" y="462" fill="#999" font-family="Arial,sans-serif"
+          font-size="15" letter-spacing="4">ZERO POINT ONE</text>
+      </svg>`;
+
+    return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
+  };
+
+  const getService = text => {
+    if (/mobile app|mobile application|android|ios/i.test(text)) {
+      return 'Mobile application';
+    }
+    if (/website|web development|web application/i.test(text)) {
+      return 'Website development';
+    }
+    if (/software|programming|code/i.test(text)) {
+      return 'Software development';
+    }
+    if (/automation|workflow|project|management|resource|security|hack|malware|phishing/i.test(text)) {
+      return 'Managed project support';
+    }
+    return 'Other enquiry';
+  };
+
+  const getPhotoUrl = card => {
+    const suppliedImage = safeHttpUrl(card.image_url || card.imageUrl || card.image);
+    if (suppliedImage) return suppliedImage;
+
+    const text = [
+      card.category,
+      card.title,
+      card.problem,
+      card.solution
+    ].join(' ');
+
+    return fallbackImages.find(item => item.match.test(text))?.url || '';
+  };
+
+  /* Build one article card */
+  const createCard = card => {
+    const article = document.createElement('article');
+    article.className = 'insight-card';
+
+    const category = card.category || 'Business & technology';
+    const title = card.title || 'A business challenge to solve';
+    const isNews = String(card.type || '').toLowerCase() === 'news';
+    const publisher = card.publisher || card.source_name || '';
+    const date = isNews ? (card.published_at || '') : '';
+    const sourceUrl = safeHttpUrl(card.source_url);
+    const fullText = [
+      category,
+      title,
+      card.problem,
+      card.solution
+    ].join(' ');
+
+    const image = document.createElement('img');
+    image.className = 'insight-image';
+    image.alt = card.image_alt || (category + ' illustration');
+    image.loading = 'lazy';
+    image.decoding = 'async';
+
+    const graphicUrl = makeFallbackGraphic(category, title);
+    image.src = getPhotoUrl(card) || graphicUrl;
+
+    image.addEventListener('error', () => {
+      if (!image.dataset.fallbackApplied) {
+        image.dataset.fallbackApplied = 'true';
+        image.src = graphicUrl;
+      }
+    });
+
+    const type = document.createElement('div');
+    type.className = 'insight-type';
+    type.textContent = category;
+
+    const heading = document.createElement('h3');
+    heading.textContent = title;
+
+    const challengeLabel = document.createElement('div');
+    challengeLabel.className = 'insight-label';
+    challengeLabel.textContent = 'THE CHALLENGE';
+
+    const challenge = document.createElement('p');
+    challenge.textContent =
+      card.problem ||
+      'Businesses need practical ways to improve their work.';
+
+    const nextLabel = document.createElement('div');
+    nextLabel.className = 'insight-label';
+    nextLabel.textContent = 'A PRACTICAL NEXT STEP';
+
+    const solution = document.createElement('p');
+    solution.className = 'insight-solution';
+    solution.textContent =
+      card.solution ||
+      'Start with a small, measurable improvement.';
+
+    const footer = document.createElement('div');
+    footer.className = 'insight-footer';
+
+    const kind = document.createElement('span');
+    kind.className = 'evergreen-badge';
+    kind.textContent = isNews ? 'LATEST NEWS' : 'PRACTICAL GUIDE';
+    footer.appendChild(kind);
+
+    if (date) {
+      const dateElement = document.createElement('span');
+      dateElement.className = 'insight-date';
+      dateElement.textContent = date;
+      footer.appendChild(dateElement);
+    }
+
+    if (publisher) {
+      const publisherElement = document.createElement('span');
+      publisherElement.className = 'insight-publisher';
+      publisherElement.textContent = publisher;
+      footer.appendChild(publisherElement);
+    }
+
+    if (isNews && sourceUrl) {
+      const sourceLink = document.createElement('a');
+      sourceLink.className = 'insight-source';
+      sourceLink.href = sourceUrl;
+      sourceLink.target = '_blank';
+      sourceLink.rel = 'noopener noreferrer';
+      sourceLink.textContent = 'Read original article ↗';
+      footer.appendChild(sourceLink);
+    }
+
+    const enquiry = document.createElement('a');
+    enquiry.className = 'insight-enquiry';
+    enquiry.href = '#contact';
+    enquiry.dataset.service = getService(fullText);
+    enquiry.textContent = 'Discuss a similar challenge ↗';
+
+    article.append(
+      image,
+      type,
+      heading,
+      challengeLabel,
+      challenge,
+      nextLabel,
+      solution,
+      footer,
+      enquiry
+    );
+
+    return article;
+  };
+
+  /* Create the slider once, with one consistent movement method */
+  const renderSlider = (grid, cards) => {
+    grid.innerHTML = `
+      <button class="insight-arrow insight-prev"
+        type="button" aria-label="Previous articles"
+        title="Previous articles">&#8592;</button>
+      <div class="insight-viewport" aria-label="Business insights">
+        <div class="insight-track"></div>
+      </div>
+      <button class="insight-arrow insight-next"
+        type="button" aria-label="Next articles"
+        title="Next articles">&#8594;</button>
+    `;
+
+    const viewport = grid.querySelector('.insight-viewport');
+    const track = grid.querySelector('.insight-track');
+    const previous = grid.querySelector('.insight-prev');
+    const next = grid.querySelector('.insight-next');
+
+    cards.forEach(card => track.appendChild(createCard(card)));
+
+    let currentIndex = 0;
+    let visibleCount = 3;
+    let resizeFrame = 0;
+
+    const getVisibleCount = () => {
+      if (window.matchMedia('(max-width: 700px)').matches) return 1;
+      if (window.matchMedia('(max-width: 1000px)').matches) return 2;
+      return 3;
+    };
+
+    const updateSlider = () => {
+      resizeFrame = 0;
+      visibleCount = getVisibleCount();
+
+      const viewportWidth = viewport.clientWidth;
+      const cardGap =
+        parseFloat(window.getComputedStyle(track).gap) || 0;
+      const cardsInView = Math.min(visibleCount, cards.length);
+      const totalGaps = Math.max(0, cardsInView - 1) * cardGap;
+      const cardWidth = cardsInView
+        ? (viewportWidth - totalGaps) / cardsInView
+        : viewportWidth;
+
+      track.querySelectorAll('.insight-card').forEach(card => {
+        card.style.flex = `0 0 ${Math.max(0, cardWidth)}px`;
+        card.style.width = `${Math.max(0, cardWidth)}px`;
+      });
+
+      const maxIndex = Math.max(0, cards.length - visibleCount);
+      currentIndex = Math.min(currentIndex, maxIndex);
+
+      const distance = cardWidth + cardGap;
+      track.style.transform =
+        `translate3d(${-currentIndex * distance}px, 0, 0)`;
+
+      previous.disabled = currentIndex === 0;
+      next.disabled = currentIndex >= maxIndex;
+
+      const hasOverflow = cards.length > visibleCount;
+      previous.hidden = !hasOverflow;
+      next.hidden = !hasOverflow;
+    };
+
+    const scheduleUpdate = () => {
+      if (resizeFrame) cancelAnimationFrame(resizeFrame);
+      resizeFrame = requestAnimationFrame(updateSlider);
+    };
+
+    next.addEventListener('click', () => {
+      const maxIndex = Math.max(0, cards.length - visibleCount);
+      if (currentIndex < maxIndex) {
+        currentIndex += 1;
+        updateSlider();
+      }
+    });
+
+    previous.addEventListener('click', () => {
+      if (currentIndex > 0) {
+        currentIndex -= 1;
+        updateSlider();
+      }
+    });
+
+    /* Prefill the contact form when a visitor chooses a card */
+    grid.addEventListener('click', event => {
+      const link = event.target.closest('.insight-enquiry');
+      if (!link || !grid.contains(link)) return;
+
+      const needField = document.getElementById('need');
+      const contactSection = document.getElementById('contact');
+      const requestedService = link.dataset.service;
+
+      if (needField && requestedService) {
+        const option = Array.from(needField.options).find(item =>
+          item.value.trim() === requestedService ||
+          item.text.trim() === requestedService
+        );
+
+        if (option) {
+          needField.value = option.value;
+          needField.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      }
+
+      if (contactSection) {
+        contactSection.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+
+    window.addEventListener('resize', scheduleUpdate, { passive: true });
+
+    if ('ResizeObserver' in window) {
+      const observer = new ResizeObserver(scheduleUpdate);
+      observer.observe(viewport);
+    }
+
+    updateSlider();
+  };
+
+  /* Load news data and display a useful fallback if loading fails */
+  async function loadBusinessInsights() {
+    const grid = document.getElementById('insight-grid');
+    const updated = document.getElementById('cards-updated');
+
+    if (!grid) return;
+
+    try {
+      const response = await fetch(
+        './data/news-cards.json?v=' + Date.now(),
+        { cache: 'no-store' }
+      );
+
+      if (!response.ok) {
+        throw new Error('News request failed with status ' + response.status);
+      }
+
+      const payload = await response.json();
+      const cards = Array.isArray(payload.cards)
+        ? payload.cards.slice(0, 12)
+        : [];
+
+      if (!cards.length) {
+        throw new Error('The news data contains no cards.');
+      }
+
+      renderSlider(grid, cards);
+
+      if (updated) {
+        updated.textContent = payload.updated_at
+          ? 'Updated ' + payload.updated_at +
+            ' · News links credited to their original publishers.'
+          : 'News links credited to their original publishers.';
+      }
+    } catch (error) {
+      console.error('Zero Point One insights:', error);
+
+      const fallbackCards = [{
+        category: 'Business & technology',
+        title: 'Business problems. Smarter solutions.',
+        problem:
+          'Businesses can lose time when repetitive tasks and project updates are difficult to track.',
+        solution:
+          'Choose one workflow to improve, define a measurable goal, and test a practical solution.',
+        type: 'guide'
+      }];
+
+      renderSlider(grid, fallbackCards);
+
+      if (updated) {
+        updated.textContent =
+          'Showing a practical guide. Latest news could not be loaded.';
+      }
+    }
+  }
+
+  loadBusinessInsights();
+})();
     const status = document.getElementById('form-status');
 
     if (!number || number === '91XXXXXXXXXX' || number.length < 10) {
