@@ -1,4 +1,3 @@
-
 const menuButton = document.querySelector('.menu-toggle');
 const nav = document.querySelector('.nav');
 
@@ -65,8 +64,7 @@ if (enquiryForm) {
   });
 }
 
-
- // Load business insight cards from the public JSON file.
+// Load business insight cards from the public JSON file.
 async function loadBusinessInsights() {
   const grid = document.getElementById('insight-grid');
   const updated = document.getElementById('cards-updated');
@@ -125,14 +123,39 @@ async function loadBusinessInsights() {
         : 'PRACTICAL GUIDE';
 
       const sourceLink = isNews && sourceUrl
-  ? `<a class="insight-source" href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener noreferrer">Read original article ↗</a>`
-  : isNews
-    ? '<span class="evergreen-badge">Original link unavailable</span>'
-    : '';
+        ? `<a class="insight-source" href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener noreferrer">Read original article ↗</a>`
+        : isNews
+          ? '<span class="evergreen-badge">Original link unavailable</span>'
+          : '';
 
       const publisher = isNews && card.publisher
         ? `<span class="insight-publisher">${escapeHtml(card.publisher)}</span>`
         : '';
+
+      // Choose a relevant enquiry service for each card.
+      const cardText = [
+        card.category || '',
+        card.title || '',
+        card.problem || '',
+        card.solution || ''
+      ].join(' ').toLowerCase();
+
+      let service = 'Other enquiry';
+
+      if (/mobile app|mobile application|android|ios/.test(cardText)) {
+        service = 'Mobile application';
+      } else if (/website|web development|web application/.test(cardText)) {
+        service = 'Website development';
+      } else if (/software|developer|programming|code/.test(cardText)) {
+        service = 'Software development';
+      } else if (/automation|workflow|repetitive task/.test(cardText)) {
+        service = 'Managed project support';
+      } else if (/cloud|cybersecurity|security|infrastructure|artificial intelligence/.test(cardText)) {
+        service = 'Other enquiry';
+      }
+
+      const enquiryUrl =
+        '#contact?need=' + encodeURIComponent(service);
 
       return `
         <article class="insight-card">
@@ -154,15 +177,62 @@ async function loadBusinessInsights() {
             ${publisher}
             ${sourceLink}
           </div>
+
+          <a class="insight-enquiry" href="${enquiryUrl}">
+            Need help with this? ↗
+          </a>
         </article>
       `;
     }).join('');
 
     updated.textContent = payload.updated_at
-  ? 'Updated ' + payload.updated_at
-  : 'Business insights';
+      ? 'Updated ' + payload.updated_at
+      : 'Business insights';
+
+    // Preselect the service requested by a visitor arriving from a card.
+    const needField = document.getElementById('need');
+
+    function selectEnquiryService() {
+      const hash = window.location.hash;
+      const queryStart = hash.indexOf('?');
+
+      if (queryStart === -1 || !needField) return;
+
+      const params = new URLSearchParams(hash.slice(queryStart + 1));
+      const requestedService = params.get('need');
+
+      if (
+        requestedService &&
+        Array.from(needField.options).some(
+          option => option.value === requestedService ||
+                    option.text === requestedService
+        )
+      ) {
+        needField.value = requestedService;
+      }
+    }
+
+    selectEnquiryService();
+
+    document.querySelectorAll('.insight-enquiry').forEach(link => {
+      link.addEventListener('click', () => {
+        const href = link.getAttribute('href');
+        const queryStart = href.indexOf('?');
+
+        if (queryStart !== -1) {
+          const params = new URLSearchParams(href.slice(queryStart + 1));
+          const requestedService = params.get('need');
+
+          if (needField && requestedService) {
+            needField.value = requestedService;
+          }
+        }
+      });
+    });
 
   } catch (error) {
+    console.error('Unable to load business insights:', error);
+
     grid.innerHTML = `
       <article class="insight-card">
         <div class="insight-type">ZERO POINT ONE / INSIGHTS</div>
@@ -174,6 +244,9 @@ async function loadBusinessInsights() {
         <div class="insight-footer">
           <span class="evergreen-badge">PRACTICAL GUIDE</span>
         </div>
+        <a class="insight-enquiry" href="#contact">
+          Need help with this? ↗
+        </a>
       </article>
     `;
 
