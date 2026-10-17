@@ -1,3 +1,4 @@
+
 {
   "updated_at": "17 October 2026",
   "cards": [
@@ -9,7 +10,8 @@
       "solution": "Review access controls, update software, maintain backups and create a clear incident-response process.",
       "publisher": "The Hacker News",
       "published_at": "17 October 2026",
-      "source_url": "https://thehackernews.com/2026/10/hackers-use-compromised-connectwise.html"
+      "source_url": "https://thehackernews.com/2026/10/hackers-use-compromised-connectwise.html",
+      "image_url": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=700&q=80"
     },
     {
       "type": "news",
@@ -19,7 +21,8 @@
       "solution": "Assess the business impact, validate the source and prioritize changes against measurable goals.",
       "publisher": "AI News & Artificial Intelligence | TechCrunch",
       "published_at": "16 October 2026",
-      "source_url": "https://techcrunch.com/2026/10/16/replit-is-no-longer-working-with-anthropic-ceo-says/"
+      "source_url": "https://techcrunch.com/2026/10/16/replit-is-no-longer-working-with-anthropic-ceo-says/",
+      "image_url": "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=700&q=80"
     },
     {
       "type": "news",
@@ -29,7 +32,8 @@
       "solution": "Review access controls, update software, maintain backups and create a clear incident-response process.",
       "publisher": "BleepingComputer",
       "published_at": "16 October 2026",
-      "source_url": "https://www.bleepingcomputer.com/news/security/critical-blockstrap-flaw-lets-hackers-run-code-on-magento-servers/"
+      "source_url": "https://www.bleepingcomputer.com/news/security/critical-blockstrap-flaw-lets-hackers-run-code-on-magento-servers/",
+      "image_url": "https://images.unsplash.com/photo-1510511459019-5dda7724fd87?auto=format&fit=crop&w=700&q=80"
     },
     {
       "type": "evergreen",
@@ -38,7 +42,8 @@
       "problem": "Teams spend too much time on repetitive tasks, leaving less time for customers and business growth.",
       "solution": "Identify one recurring task and test a simple workflow using a form, spreadsheet or automation tool.",
       "published_at": "17 October 2026",
-      "source_url": ""
+      "source_url": "",
+      "image_url": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=700&q=80"
     },
     {
       "type": "evergreen",
@@ -47,7 +52,8 @@
       "problem": "Visitors may leave a business website without understanding what the company offers or how to make contact.",
       "solution": "Make your services clear, add a visible enquiry button and ensure the contact form works well on mobile devices.",
       "published_at": "17 October 2026",
-      "source_url": ""
+      "source_url": "",
+      "image_url": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=700&q=80"
     }
   ]
 }
