@@ -193,26 +193,26 @@ async function loadBusinessInsights() {
     const needField = document.getElementById('need');
 
     function selectEnquiryService() {
-      const hash = window.location.hash;
-      const queryStart = hash.indexOf('?');
+  const hash = window.location.hash;
+  const queryStart = hash.indexOf('&need=');
 
-      if (queryStart === -1 || !needField) return;
+  if (queryStart === -1 || !needField) return;
 
-      const params = new URLSearchParams(hash.slice(queryStart + 1));
-      const requestedService = params.get('need');
+  const requestedService = decodeURIComponent(
+    hash.slice(queryStart + '&need='.length)
+  );
 
-      if (
-        requestedService &&
-        Array.from(needField.options).some(
-          option => option.value === requestedService ||
-                    option.text === requestedService
-        )
-      ) {
-        needField.value = requestedService;
-      }
-    }
+  const option = Array.from(needField.options).find(
+    item => item.value === requestedService ||
+            item.text === requestedService
+  );
 
-    selectEnquiryService();
+  if (option) {
+    needField.value = option.value;
+  }
+}
+
+selectEnquiryService();
 
     document.querySelectorAll('.insight-enquiry').forEach(link => {
       link.addEventListener('click', () => {
