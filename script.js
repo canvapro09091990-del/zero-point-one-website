@@ -242,6 +242,7 @@ async function loadBusinessInsights() {
     }).join('');
 
     
+
 /* Two identical groups for a seamless carousel loop */
 grid.innerHTML = `
   <div class="insight-track">
@@ -256,12 +257,49 @@ grid.innerHTML = `
 
 const track = grid.querySelector('.insight-track');
 const groups = grid.querySelectorAll('.insight-group');
+const firstGroup = groups[0];
+const duplicateGroup = groups[1];
 
-/* Keep the duplicate visually identical but prevent duplicate
-   links from being reached by keyboard or screen readers. */
-groups[1].querySelectorAll('a').forEach(link => {
+/* Keep duplicate links out of keyboard navigation. */
+duplicateGroup.querySelectorAll('a').forEach(link => {
   link.setAttribute('tabindex', '-1');
 });
+
+/* Measure one complete group, including its trailing padding. */
+let carouselResizeObserver;
+
+function updateCarouselMeasurements() {
+  if (!track || !firstGroup) return;
+
+  const groupWidth = firstGroup.getBoundingClientRect().width;
+
+  if (!Number.isFinite(groupWidth) || groupWidth <= 0) return;
+
+  track.style.setProperty('--loop-distance', `${groupWidth}px`);
+
+  // A consistent speed, regardless of screen width.
+  track.style.setProperty(
+    '--carousel-duration',
+    `${groupWidth / 35}s`
+  );
+}
+
+/* Wait until the browser has laid out the cards. */
+requestAnimationFrame(() => {
+  updateCarouselMeasurements();
+
+  if ('ResizeObserver' in window) {
+    carouselResizeObserver = new ResizeObserver(() => {
+      updateCarouselMeasurements();
+    });
+
+    carouselResizeObserver.observe(firstGroup);
+    carouselResizeObserver.observe(grid);
+  }
+});
+
+window.addEventListener('resize', updateCarouselMeasurements);
+
 
 
     updated.textContent = payload.updated_at
