@@ -142,18 +142,17 @@ async function loadBusinessInsights() {
 
       let service = 'Other enquiry';
 
-      if (/mobile app|mobile application|android|ios/.test(cardText)) {
-        service = 'Mobile application';
-      } else if (/website|web development|web application/.test(cardText)) {
-        service = 'Website development';
-      } else if (/software|developer|programming|code/.test(cardText)) {
-        service = 'Software development';
-      } else if (/automation|workflow|repetitive task/.test(cardText)) {
-        service = 'Managed project support';
-      } else if (/cloud|cybersecurity|security|infrastructure|artificial intelligence/.test(cardText)) {
-        service = 'Other enquiry';
-      }
-
+if (/cybersecurity|security|hack|malware|phishing|ransomware|vulnerability/.test(cardText)) {
+  service = 'Other enquiry';
+} else if (/mobile app|mobile application|android|ios/.test(cardText)) {
+  service = 'Mobile application';
+} else if (/website|web development|web application/.test(cardText)) {
+  service = 'Website development';
+} else if (/software|developer|programming|code/.test(cardText)) {
+  service = 'Software development';
+} else if (/automation|workflow|repetitive task/.test(cardText)) {
+  service = 'Managed project support';
+}
       const enquiryUrl =
   '#contact&need=' + encodeURIComponent(service);
 
