@@ -136,3 +136,16 @@ section {
     gap: 16px;
   }
 }
+.insight-enquiry {
+  display: inline-block;
+  margin-top: 18px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-color, #333);
+  color: inherit;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.insight-enquiry:hover {
+  text-decoration: underline;
+}
