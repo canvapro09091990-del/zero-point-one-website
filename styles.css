@@ -149,3 +149,151 @@ section {
 .insight-enquiry:hover {
   text-decoration: underline;
 }
+
+/* Zero Point One — Horizontal insights carousel */
+
+#insight-grid {
+  display: block;
+  width: 100%;
+  max-width: 1100px;
+  margin: 36px auto 0;
+  overflow: hidden;
+  position: relative;
+  min-width: 0;
+}
+
+#insight-grid .insight-track {
+  display: flex;
+  align-items: stretch;
+  gap: 20px;
+  width: max-content;
+  animation: zpo-insight-scroll 45s linear infinite;
+  will-change: transform;
+}
+
+#insight-grid .insight-card {
+  flex: 0 0 calc((min(1100px, 100vw - 60px) - 40px) / 3);
+  width: auto;
+  min-width: 0;
+  max-width: none;
+  height: auto;
+  overflow-wrap: anywhere;
+  transform: none;
+  transition: border-color 0.2s ease;
+}
+
+#insight-grid .insight-card:hover {
+  border-color: #858585;
+  transform: none;
+}
+
+#insight-grid .insight-track:hover,
+#insight-grid:hover .insight-track,
+#insight-grid:focus-within .insight-track,
+#insight-grid .insight-track.is-paused {
+  animation-play-state: paused;
+}
+
+#insight-grid .insight-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 7px;
+  background: #1b1b1b;
+  margin-bottom: 5px;
+}
+
+#insight-grid .insight-type {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #aaa;
+}
+
+#insight-grid .insight-card h3 {
+  font-size: 21px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+#insight-grid .insight-card p {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+#insight-grid .insight-label {
+  flex-shrink: 0;
+}
+
+#insight-grid .insight-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 12px;
+}
+
+#insight-grid .insight-source {
+  display: inline-block;
+  border-top: 0;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+#insight-grid .insight-enquiry {
+  display: inline-block;
+  flex-shrink: 0;
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px solid #333;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+}
+
+#insight-grid .insight-enquiry:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+@keyframes zpo-insight-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Responsive carousel */
+@media (max-width: 700px) {
+  #insight-grid .insight-track {
+    gap: 14px;
+    animation-duration: 40s;
+  }
+
+  #insight-grid .insight-card {
+    flex-basis: min(82vw, 360px);
+    padding: 20px;
+  }
+
+  #insight-grid .insight-card h3 {
+    font-size: 20px;
+  }
+}
+
+/* Allow users to stop animation using their device preference */
+@media (prefers-reduced-motion: reduce) {
+  #insight-grid {
+    overflow-x: auto;
+  }
+
+  #insight-grid .insight-track {
+    animation: none;
+    transform: none;
+    will-change: auto;
+  }
+}
