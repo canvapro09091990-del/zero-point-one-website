@@ -1,0 +1,41 @@
+name: Update Zero Point One IT News
+
+on:
+  schedule:
+    - cron: "30 2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-it-news
+  cancel-in-progress: false
+
+jobs:
+  update-news:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out website repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Update news cards
+        run: python scripts/update_news.py
+
+      - name: Commit updated news cards
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/news-cards.json
+          if git diff --cached --quiet; then
+            echo "No news changes to commit."
+          else
+            git commit -m "Update daily IT news cards"
+            git push
+          fi
