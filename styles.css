@@ -187,3 +187,47 @@
     transition: none;
   }
 }
+
+/* Zero Point One social media links */
+.social-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.social-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  color: inherit;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  text-decoration: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.social-links svg {
+  display: block;
+  width: 19px;
+  height: 19px;
+}
+
+.social-links a:hover {
+  opacity: 0.7;
+  transform: translateY(-2px);
+}
+
+.social-links a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+/* Keep social icons compact on mobile */
+@media (max-width: 600px) {
+  .social-links {
+    gap: 10px;
+  }
+}
