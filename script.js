@@ -65,7 +65,8 @@ if (enquiryForm) {
   });
 }
 
-// Load business insight cards from the public JSON file.
+
+ // Load business insight cards from the public JSON file.
 async function loadBusinessInsights() {
   const grid = document.getElementById('insight-grid');
   const updated = document.getElementById('cards-updated');
@@ -112,26 +113,45 @@ async function loadBusinessInsights() {
     }
 
     grid.innerHTML = cards.map(card => {
+      const isNews = String(card.type || '').toLowerCase() === 'news';
       const sourceUrl = safeUrl(card.source_url);
-      const evergreen =
-        card.type === 'evergreen' || !sourceUrl;
 
-      const sourceLink = evergreen
-        ? '<span class="evergreen-badge">PRACTICAL GUIDE</span>'
-        : `<a class="insight-source" href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener noreferrer">Read source ↗</a>`;
+      const dateText = isNews
+        ? (card.published_at || '')
+        : '';
+
+      const label = isNews
+        ? 'LATEST NEWS'
+        : 'PRACTICAL GUIDE';
+
+      const sourceLink = isNews && sourceUrl
+        ? `<a class="insight-source" href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener noreferrer">Read original article ↗</a>`
+        : isNews
+          ? '<span class="evergreen-badge">Original link unavailable</span>'
+          : '<span class="evergreen-badge">PRACTICAL GUIDE</span>';
+
+      const publisher = isNews && card.publisher
+        ? `<span class="insight-publisher">${escapeHtml(card.publisher)}</span>`
+        : '';
 
       return `
         <article class="insight-card">
           <div class="insight-type">
             ${escapeHtml(card.category || 'Business & technology')}
           </div>
+
           <h3>${escapeHtml(card.title || 'A business challenge to solve')}</h3>
+
           <div class="insight-label">THE CHALLENGE</div>
           <p>${escapeHtml(card.problem || 'Businesses need practical ways to improve their work.')}</p>
+
           <div class="insight-label">A PRACTICAL NEXT STEP</div>
           <p class="insight-solution">${escapeHtml(card.solution || 'Start with a small, measurable improvement.')}</p>
+
           <div class="insight-footer">
-            <span class="insight-date">${escapeHtml(card.published_at || '')}</span>
+            <span class="evergreen-badge">${label}</span>
+            ${dateText ? `<span class="insight-date">${escapeHtml(dateText)}</span>` : ''}
+            ${publisher}
             ${sourceLink}
           </div>
         </article>
@@ -139,8 +159,9 @@ async function loadBusinessInsights() {
     }).join('');
 
     updated.textContent = payload.updated_at
-      ? 'Updated ' + payload.updated_at
-      : 'Latest business insights';
+      ? 'Updated ' + payload.updated_at +
+        ' · News links are credited to their original publishers.'
+      : 'Business insights · News links are credited to their original publishers.';
 
   } catch (error) {
     grid.innerHTML = `
@@ -148,18 +169,16 @@ async function loadBusinessInsights() {
         <div class="insight-type">ZERO POINT ONE / INSIGHTS</div>
         <h3>Make one workflow easier this week.</h3>
         <div class="insight-label">THE CHALLENGE</div>
-        <p>Repeated manual tasks can slow teams down and make it difficult to track progress.</p>
+        <p>Repeated manual tasks can slow teams down and make progress difficult to track.</p>
         <div class="insight-label">A PRACTICAL NEXT STEP</div>
-        <p class="insight-solution">Choose one repetitive task, document the current steps, and test a simple form, spreadsheet or automation before expanding it.</p>
+        <p class="insight-solution">Choose one repetitive task, document the steps, and test a simple form, spreadsheet or automation.</p>
         <div class="insight-footer">
-          <span class="insight-date">Evergreen guide</span>
           <span class="evergreen-badge">PRACTICAL GUIDE</span>
         </div>
       </article>
     `;
 
-    updated.textContent =
-      'Showing a practical guide while the latest cards load.';
+    updated.textContent = 'Showing a practical guide while the latest cards load.';
   }
 }
 
