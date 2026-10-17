@@ -1,7 +1,36 @@
-
 {
   "updated_at": "17 October 2026",
   "cards": [
+    {
+      "type": "news",
+      "category": "Cybersecurity",
+      "title": "Hackers Use Compromised ConnectWise Credential to Sign In to 173 Microsoft 365 Tenants",
+      "problem": "Businesses need to keep systems, customer data and accounts protected as security risks evolve.",
+      "solution": "Review access controls, update software, maintain backups and create a clear incident-response process.",
+      "publisher": "The Hacker News",
+      "published_at": "17 October 2026",
+      "source_url": "https://thehackernews.com/2026/10/hackers-use-compromised-connectwise.html"
+    },
+    {
+      "type": "news",
+      "category": "Technology & Business",
+      "title": "Replit is no longer working with Anthropic, CEO says",
+      "problem": "Keeping up with technology changes can make it difficult to decide what deserves attention first.",
+      "solution": "Assess the business impact, validate the source and prioritize changes against measurable goals.",
+      "publisher": "AI News & Artificial Intelligence | TechCrunch",
+      "published_at": "16 October 2026",
+      "source_url": "https://techcrunch.com/2026/10/16/replit-is-no-longer-working-with-anthropic-ceo-says/"
+    },
+    {
+      "type": "news",
+      "category": "Cybersecurity",
+      "title": "Critical BlockStrap flaw lets hackers run code on Magento servers",
+      "problem": "Businesses need to keep systems, customer data and accounts protected as security risks evolve.",
+      "solution": "Review access controls, update software, maintain backups and create a clear incident-response process.",
+      "publisher": "BleepingComputer",
+      "published_at": "16 October 2026",
+      "source_url": "https://www.bleepingcomputer.com/news/security/critical-blockstrap-flaw-lets-hackers-run-code-on-magento-servers/"
+    },
     {
       "type": "evergreen",
       "category": "Business Automation",
@@ -17,33 +46,6 @@
       "title": "Turn website visits into enquiries",
       "problem": "Visitors may leave a business website without understanding what the company offers or how to make contact.",
       "solution": "Make your services clear, add a visible enquiry button and ensure the contact form works well on mobile devices.",
-      "published_at": "17 October 2026",
-      "source_url": ""
-    },
-    {
-      "type": "evergreen",
-      "category": "Project Management",
-      "title": "Make project progress visible",
-      "problem": "Clients and teams can lose track of completed work, pending tasks and upcoming deadlines.",
-      "solution": "Use a shared task board with task owners, due dates, status updates and agreed milestones.",
-      "published_at": "17 October 2026",
-      "source_url": ""
-    },
-    {
-      "type": "evergreen",
-      "category": "Business Software",
-      "title": "Reduce duplicate data entry",
-      "problem": "Entering the same information into multiple tools can waste time and introduce errors.",
-      "solution": "Map where the information is repeated and investigate whether a simple integration or shared system can reduce duplication.",
-      "published_at": "17 October 2026",
-      "source_url": ""
-    },
-    {
-      "type": "evergreen",
-      "category": "IT Resource Support",
-      "title": "Choose the right technical resource",
-      "problem": "Hiring without a clear scope can lead to mismatched skills, unclear responsibilities and delayed delivery.",
-      "solution": "Write down the required skills, deliverables, expected availability and communication requirements before selecting a developer.",
       "published_at": "17 October 2026",
       "source_url": ""
     }
