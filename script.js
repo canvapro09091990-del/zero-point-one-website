@@ -1,8 +1,11 @@
+/* Zero Point One — site interactions and manual business-insights slider */
 
 const menuButton = document.querySelector('.menu-toggle');
 const nav = document.querySelector('.nav');
 
 if (menuButton && nav) {
+  menuButton.setAttribute('aria-expanded', 'false');
+
   menuButton.addEventListener('click', () => {
     const open = nav.classList.toggle('open');
     menuButton.setAttribute('aria-expanded', String(open));
@@ -19,7 +22,7 @@ if (menuButton && nav) {
 const year = document.getElementById('year');
 if (year) year.textContent = new Date().getFullYear();
 
-// WhatsApp enquiry form.
+/* WhatsApp enquiry form */
 const enquiryForm = document.getElementById('enquiry-form');
 
 if (enquiryForm) {
@@ -42,7 +45,6 @@ if (enquiryForm) {
     }
 
     const data = new FormData(enquiryForm);
-
     const message = [
       'Hello Zero Point One, I would like to discuss an enquiry.',
       '',
@@ -65,8 +67,7 @@ if (enquiryForm) {
   });
 }
 
-// Relevant fallback images for the current evergreen guides.
-// A card's image_url takes priority whenever one is supplied.
+/* Topic-based fallback images for cards without their own image. */
 const insightFallbackImages = [
   {
     match: /cybersecurity|security|hack|malware|phishing|ransomware|vulnerability/i,
@@ -94,7 +95,7 @@ async function loadBusinessInsights() {
   const grid = document.getElementById('insight-grid');
   const updated = document.getElementById('cards-updated');
 
-  if (!grid || !updated) return;
+  if (!grid) return;
 
   const escapeHtml = value =>
     String(value ?? '').replace(/[&<>"']/g, character => ({
@@ -108,12 +109,29 @@ async function loadBusinessInsights() {
   const safeUrl = value => {
     try {
       const url = new URL(value, window.location.href);
-      return ['https:', 'http:'].includes(url.protocol)
-        ? url.href
-        : '';
+      return ['https:', 'http:'].includes(url.protocol) ? url.href : '';
     } catch {
       return '';
     }
+  };
+
+  const getService = cardText => {
+    if (/cybersecurity|security|hack|malware|phishing|ransomware|vulnerability/i.test(cardText)) {
+      return 'Other enquiry';
+    }
+    if (/mobile app|mobile application|android|ios/i.test(cardText)) {
+      return 'Mobile application';
+    }
+    if (/website|web development|web application/i.test(cardText)) {
+      return 'Website development';
+    }
+    if (/software|programming|code/i.test(cardText)) {
+      return 'Software development';
+    }
+    if (/automation|workflow|repetitive task/i.test(cardText)) {
+      return 'Managed project support';
+    }
+    return 'Other enquiry';
   };
 
   try {
@@ -123,25 +141,20 @@ async function loadBusinessInsights() {
     );
 
     if (!response.ok) {
-      throw new Error('Could not load insight data');
+      throw new Error('Could not load insight data (' + response.status + ')');
     }
 
     const payload = await response.json();
-    const cards = Array.isArray(payload.cards)
-      ? payload.cards.slice(0, 5)
-      : [];
+    const cards = Array.isArray(payload.cards) ? payload.cards.slice(0, 5) : [];
 
     if (!cards.length) {
       throw new Error('No insight cards found');
     }
 
     const cardsHtml = cards.map(card => {
-      const isNews =
-        String(card.type || '').toLowerCase() === 'news';
-
+      const isNews = String(card.type || '').toLowerCase() === 'news';
       const sourceUrl = safeUrl(card.source_url);
       const publisher = card.publisher || card.source_name || '';
-
       const cardText = [
         card.category || '',
         card.title || '',
@@ -149,48 +162,13 @@ async function loadBusinessInsights() {
         card.solution || ''
       ].join(' ');
 
-      // Cybersecurity must be matched before software development.
-      let service = 'Other enquiry';
-
-      if (
-        /cybersecurity|security|hack|malware|phishing|ransomware|vulnerability/i.test(cardText)
-      ) {
-        service = 'Other enquiry';
-      } else if (
-        /mobile app|mobile application|android|ios/i.test(cardText)
-      ) {
-        service = 'Mobile application';
-      } else if (
-        /website|web development|web application/i.test(cardText)
-      ) {
-        service = 'Website development';
-      } else if (
-        /software|programming|code/i.test(cardText)
-      ) {
-        service = 'Software development';
-      } else if (
-        /automation|workflow|repetitive task/i.test(cardText)
-      ) {
-        service = 'Managed project support';
-      }
-
-      const fallback = insightFallbackImages.find(item =>
-        item.match.test(cardText)
-      );
-
-      const imageUrl =
-        safeUrl(card.image_url) ||
-        (fallback ? fallback.url : '');
-
+      const fallback = insightFallbackImages.find(item => item.match.test(cardText));
+      const imageUrl = safeUrl(card.image_url) || (fallback ? fallback.url : '');
       const image = imageUrl
-        ? `<img
-             class="insight-image"
-             src="${escapeHtml(imageUrl)}"
-             alt="${escapeHtml(card.image_alt || card.category || 'Business technology illustration')}"
-             loading="lazy"
-             width="800"
-             height="450"
-           >`
+        ? `<img class="insight-image"
+                src="${escapeHtml(imageUrl)}"
+                alt="${escapeHtml(card.image_alt || card.category || 'Business technology illustration')}"
+                loading="lazy" width="800" height="450">`
         : '';
 
       const sourceLink = isNews && sourceUrl
@@ -199,242 +177,140 @@ async function loadBusinessInsights() {
           ? '<span class="evergreen-badge">Original link unavailable</span>'
           : '';
 
-      const dateText = isNews
-        ? (card.published_at || '')
-        : '';
-
-      const label = isNews
-        ? 'LATEST NEWS'
-        : 'PRACTICAL GUIDE';
+      const dateText = isNews ? (card.published_at || '') : '';
+      const label = isNews ? 'LATEST NEWS' : 'PRACTICAL GUIDE';
+      const service = getService(cardText);
 
       return `
         <article class="insight-card">
           ${image}
-
-          <div class="insight-type">
-            ${escapeHtml(card.category || 'Business & technology')}
-          </div>
-
+          <div class="insight-type">${escapeHtml(card.category || 'Business & technology')}</div>
           <h3>${escapeHtml(card.title || 'A business challenge to solve')}</h3>
-
           <div class="insight-label">THE CHALLENGE</div>
           <p>${escapeHtml(card.problem || 'Businesses need practical ways to improve their work.')}</p>
-
           <div class="insight-label">A PRACTICAL NEXT STEP</div>
           <p class="insight-solution">${escapeHtml(card.solution || 'Start with a small, measurable improvement.')}</p>
-
           <div class="insight-footer">
             <span class="evergreen-badge">${label}</span>
             ${dateText ? `<span class="insight-date">${escapeHtml(dateText)}</span>` : ''}
             ${publisher ? `<span class="insight-publisher">${escapeHtml(publisher)}</span>` : ''}
             ${sourceLink}
           </div>
-
-          <a
-            class="insight-enquiry"
-            href="#contact"
-            data-service="${service}"
-          >
+          <a class="insight-enquiry" href="#contact" data-service="${escapeHtml(service)}">
             Need help with this? ↗
           </a>
         </article>
       `;
     }).join('');
 
-    
+    /* One track, one set of cards: no duplicate groups and no animation. */
+    grid.innerHTML = `
+      <button class="insight-arrow insight-prev" type="button"
+        aria-label="Previous article" title="Previous article">&#8592;</button>
+      <div class="insight-viewport" aria-label="Business insights">
+        <div class="insight-track">${cardsHtml}</div>
+      </div>
+      <button class="insight-arrow insight-next" type="button"
+        aria-label="Next article" title="Next article">&#8594;</button>
+    `;
 
+    const track = grid.querySelector('.insight-track');
+    const viewport = grid.querySelector('.insight-viewport');
+    const previousButton = grid.querySelector('.insight-prev');
+    const nextButton = grid.querySelector('.insight-next');
 
-/* Manual article slider — no automatic movement */
-grid.innerHTML = `
-  <button
-    class="insight-arrow insight-prev"
-    type="button"
-    aria-label="Previous articles"
-    title="Previous articles"
-  >&#8592;</button>
+    const scrollArticles = direction => {
+      const card = track && track.querySelector('.insight-card');
+      if (!card || !viewport) return;
 
-  <div class="insight-viewport" aria-label="Business insights">
-    <div class="insight-track">
-      ${cardsHtml}
-    </div>
-  </div>
+      const trackStyles = window.getComputedStyle(track);
+      const gap = parseFloat(trackStyles.columnGap || trackStyles.gap) || 0;
+      const distance = card.getBoundingClientRect().width + gap;
 
-  <button
-    class="insight-arrow insight-next"
-    type="button"
-    aria-label="Next articles"
-    title="Next articles"
-  >&#8594;</button>
-`;
+      viewport.scrollBy({ left: direction * distance, behavior: 'smooth' });
+    };
 
-const track = grid.querySelector('.insight-track');
-const viewport = grid.querySelector('.insight-viewport');
-const previousButton = grid.querySelector('.insight-prev');
-const nextButton = grid.querySelector('.insight-next');
+    previousButton.addEventListener('click', () => scrollArticles(-1));
+    nextButton.addEventListener('click', () => scrollArticles(1));
 
-function scrollArticles(direction) {
-  const card = track.querySelector('.insight-card');
-  if (!card) return;
+    /* Keep arrow controls usable with the keyboard and update disabled states. */
+    const updateArrowStates = () => {
+      const maxScroll = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+      previousButton.disabled = viewport.scrollLeft <= 2;
+      nextButton.disabled = viewport.scrollLeft >= maxScroll - 2;
+    };
 
-  const styles = window.getComputedStyle(track);
-  const gap = parseFloat(styles.columnGap) || 0;
-  const distance = card.getBoundingClientRect().width + gap;
+    viewport.addEventListener('scroll', updateArrowStates, { passive: true });
+    window.addEventListener('resize', updateArrowStates);
+    requestAnimationFrame(updateArrowStates);
 
-  viewport.scrollBy({
-    left: direction * distance,
-    behavior: 'smooth'
-  });
-}
-
-previousButton.addEventListener('click', () => {
-  scrollArticles(-1);
-});
-
-nextButton.addEventListener('click', () => {
-  scrollArticles(1);
-});
-
-
-/* Measure one complete group, including its trailing padding. */
-let carouselResizeObserver;
-
-function updateCarouselMeasurements() {
-  if (!track || !firstGroup) return;
-
-  const groupWidth = firstGroup.getBoundingClientRect().width;
-
-  if (!Number.isFinite(groupWidth) || groupWidth <= 0) return;
-
-  track.style.setProperty('--loop-distance', `${groupWidth}px`);
-
-  // A consistent speed, regardless of screen width.
-  track.style.setProperty(
-    '--carousel-duration',
-    `${groupWidth / 35}s`
-  );
-}
-
-/* Wait until the browser has laid out the cards. */
-requestAnimationFrame(() => {
-  updateCarouselMeasurements();
-
-  if ('ResizeObserver' in window) {
-    carouselResizeObserver = new ResizeObserver(() => {
-      updateCarouselMeasurements();
-    });
-
-    carouselResizeObserver.observe(firstGroup);
-    carouselResizeObserver.observe(grid);
-  }
-});
-
-window.addEventListener('resize', updateCarouselMeasurements);
-
-
-
-    updated.textContent = payload.updated_at
-      ? 'Updated ' + payload.updated_at
-      : 'Business insights';
-
-    // Handle original and duplicated enquiry links.
+    /* Delegate enquiry links so the selected service is prefilled. */
     const needField = document.getElementById('need');
     const contactSection = document.getElementById('contact');
 
     grid.addEventListener('click', event => {
       const link = event.target.closest('.insight-enquiry');
-
       if (!link || !grid.contains(link)) return;
 
       const requestedService = link.dataset.service;
-
       if (needField && requestedService) {
-        const matchingOption = Array.from(needField.options).find(
-          option =>
-            option.value.trim() === requestedService ||
-            option.text.trim() === requestedService
+        const matchingOption = Array.from(needField.options).find(option =>
+          option.value.trim() === requestedService ||
+          option.text.trim() === requestedService
         );
 
         if (matchingOption) {
           needField.value = matchingOption.value;
-          needField.dispatchEvent(
-            new Event('change', { bubbles: true })
-          );
+          needField.dispatchEvent(new Event('change', { bubbles: true }));
         }
       }
 
       if (contactSection) {
-        contactSection.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
+        contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     });
 
-    // Touch users can pause while reading; resume shortly after.
-    let touchResumeTimer;
-
-    grid.addEventListener('touchstart', () => {
-      track.classList.add('is-paused');
-      clearTimeout(touchResumeTimer);
-    }, { passive: true });
-
-    grid.addEventListener('touchend', () => {
-      clearTimeout(touchResumeTimer);
-
-      touchResumeTimer = setTimeout(() => {
-        track.classList.remove('is-paused');
-      }, 2500);
-    }, { passive: true });
-
-    grid.addEventListener('touchcancel', () => {
-      clearTimeout(touchResumeTimer);
-      track.classList.remove('is-paused');
-    }, { passive: true });
-
-    // Replace unavailable images with a neutral branded fallback.
+    /* Hide broken image URLs rather than leaving broken-image icons. */
     grid.querySelectorAll('.insight-image').forEach(img => {
       img.addEventListener('error', () => {
         img.style.display = 'none';
       }, { once: true });
     });
 
+    if (updated) {
+      updated.textContent = payload.updated_at
+        ? 'Updated ' + payload.updated_at
+        : 'Business insights';
+    }
   } catch (error) {
     console.error('Unable to load business insights:', error);
 
     grid.innerHTML = `
-      <article class="insight-card">
+      <article class="insight-card insight-fallback-card">
         <div class="insight-type">ZERO POINT ONE / INSIGHTS</div>
         <h3>Make one workflow easier this week.</h3>
         <div class="insight-label">THE CHALLENGE</div>
         <p>Repeated manual tasks can slow teams down and make progress difficult to track.</p>
         <div class="insight-label">A PRACTICAL NEXT STEP</div>
         <p>Choose one repetitive task, document the steps, and test a simple form, spreadsheet or automation.</p>
-        <a class="insight-enquiry" href="#contact" data-service="Managed project support">
-          Need help with this? ↗
-        </a>
+        <a class="insight-enquiry" href="#contact" data-service="Managed project support">Need help with this? ↗</a>
       </article>
     `;
 
-    updated.textContent =
-      'Showing a practical guide while the latest cards load.';
+    if (updated) updated.textContent = 'Showing a practical guide while the latest cards load.';
 
     const needField = document.getElementById('need');
     const contactSection = document.getElementById('contact');
 
     grid.querySelector('.insight-enquiry')?.addEventListener('click', () => {
       if (needField) {
-        const option = Array.from(needField.options).find(
-          item => item.value === 'Managed project support' ||
-                  item.text.trim() === 'Managed project support'
+        const option = Array.from(needField.options).find(item =>
+          item.value === 'Managed project support' ||
+          item.text.trim() === 'Managed project support'
         );
-
         if (option) needField.value = option.value;
       }
-
-      contactSection?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
+      contactSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   }
 }
