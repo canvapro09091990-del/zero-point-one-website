@@ -241,18 +241,28 @@ async function loadBusinessInsights() {
       `;
     }).join('');
 
-    // The track contains two identical sets for seamless looping.
-    grid.innerHTML = `
-      <div class="insight-track">
-        ${cardsHtml}
-      </div>
-    `;
+    
+/* Two identical groups for a seamless carousel loop */
+grid.innerHTML = `
+  <div class="insight-track">
+    <div class="insight-group">
+      ${cardsHtml}
+    </div>
+    <div class="insight-group" aria-hidden="true">
+      ${cardsHtml}
+    </div>
+  </div>
+`;
 
-    const track = grid.querySelector('.insight-track');
+const track = grid.querySelector('.insight-track');
+const groups = grid.querySelectorAll('.insight-group');
 
-    Array.from(track.children).forEach(card => {
-      track.appendChild(card.cloneNode(true));
-    });
+/* Keep the duplicate visually identical but prevent duplicate
+   links from being reached by keyboard or screen readers. */
+groups[1].querySelectorAll('a').forEach(link => {
+  link.setAttribute('tabindex', '-1');
+});
+
 
     updated.textContent = payload.updated_at
       ? 'Updated ' + payload.updated_at
