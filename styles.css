@@ -259,6 +259,7 @@ section {
   text-underline-offset: 4px;
 }
 
+
 @keyframes zpo-insight-scroll {
   from {
     transform: translateX(0);
@@ -267,6 +268,7 @@ section {
     transform: translateX(-50%);
   }
 }
+
 
 /* Responsive carousel */
 @media (max-width: 700px) {
