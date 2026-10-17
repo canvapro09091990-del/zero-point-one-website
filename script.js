@@ -91,29 +91,215 @@ const insightFallbackImages = [
   }
 ];
 
+
 async function loadBusinessInsights() {
   const grid = document.getElementById('insight-grid');
   const updated = document.getElementById('cards-updated');
-
   if (!grid) return;
 
-  const escapeHtml = value =>
-    String(value ?? '').replace(/[&<>"']/g, character => ({
-      '&': '&amp;',
-      '<': '&lt;',
-      '>': '&gt;',
-      '"': '&quot;',
-      "'": '&#39;'
-    })[character]);
+  const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;',
+    '"': '&quot;', "'": '&#39;'
+  })[c]);
 
   const safeUrl = value => {
     try {
-      const url = new URL(value, window.location.href);
+      const url = new URL(value, location.href);
       return ['https:', 'http:'].includes(url.protocol) ? url.href : '';
     } catch {
       return '';
     }
   };
+
+  /* A built-in graphic guarantees a visible image even if a photo fails. */
+  const graphic = (category, title) => {
+    const label = esc(category || 'TECHNOLOGY').slice(0, 45);
+    const heading = esc(title || 'Business insights').slice(0, 65);
+    const svg = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="800" height="420" viewBox="0 0 800 420">
+        <rect width="800" height="420" fill="#111111"/>
+        <g stroke="#555" stroke-width="1" opacity=".6">
+          ${Array.from({length: 9}, (_, i) =>
+            `<path d="M${i * 100} 0 V420"/>`).join('')}
+          ${Array.from({length: 5}, (_, i) =>
+            `<path d="M0 ${i * 100} H800"/>`).join('')}
+        </g>
+        <circle cx="620" cy="155" r="100" fill="none" stroke="#999" stroke-width="2"/>
+        <circle cx="620" cy="155" r="70" fill="none" stroke="#666" stroke-width="2"/>
+        <circle cx="620" cy="155" r="35" fill="#ddd"/>
+        <path d="M500 155 H585 M620 35 V85 M620 225 V275 M655 155 H740"
+          stroke="#ddd" stroke-width="3" fill="none"/>
+        <text x="42" y="65" fill="#bbb" font-family="Arial,sans-serif"
+          font-size="18" letter-spacing="4">${label}</text>
+        <path d="M42 92 H310" stroke="#777" stroke-width="2"/>
+        <foreignObject x="42" y="125" width="430" height="190">
+          <div xmlns="http://www.w3.org/1999/xhtml"
+            style="font: bold 34px Arial,sans-serif;color:#fff;line-height:1.2;overflow-wrap:anywhere">
+            ${heading}
+          </div>
+        </foreignObject>
+        <text x="42" y="375" fill="#999" font-family="Arial,sans-serif"
+          font-size="14" letter-spacing="3">ZERO POINT ONE</text>
+      </svg>`;
+    return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
+  };
+
+  const fallbackFor = text => {
+    if (/security|hack|malware|phishing|cyber/i.test(text))
+      return 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80';
+    if (/website|web development/i.test(text))
+      return 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80';
+    if (/automation|workflow/i.test(text))
+      return 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80';
+    if (/project|management/i.test(text))
+      return 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80';
+    return '';
+  };
+
+  try {
+    const response = await fetch('./data/news-cards.json?v=' + Date.now(), {
+      cache: 'no-store'
+    });
+    if (!response.ok) throw new Error('News data could not be loaded');
+
+    const payload = await response.json();
+    const cards = Array.isArray(payload.cards) ? payload.cards : [];
+    if (!cards.length) throw new Error('No cards found');
+
+    grid.innerHTML = `
+      <button class="insight-arrow insight-prev" type="button" aria-label="Previous articles">←</button>
+      <div class="insight-viewport">
+        <div class="insight-track"></div>
+      </div>
+      <button class="insight-arrow insight-next" type="button" aria-label="Next articles">→</button>
+    `;
+
+    const track = grid.querySelector('.insight-track');
+    const viewport = grid.querySelector('.insight-viewport');
+    const prev = grid.querySelector('.insight-prev');
+    const next = grid.querySelector('.insight-next');
+
+    cards.forEach(card => {
+      const text = [card.category, card.title, card.problem, card.solution].join(' ');
+      const photo = safeUrl(card.image_url) || fallbackFor(text);
+      const graphicUrl = graphic(card.category, card.title);
+      const isNews = String(card.type).toLowerCase() === 'news';
+      const source = safeUrl(card.source_url);
+
+      const article = document.createElement('article');
+      article.className = 'insight-card';
+
+      const img = document.createElement('img');
+      img.className = 'insight-image';
+      img.alt = (card.category || 'Technology') + ' illustration';
+      img.loading = 'lazy';
+      img.src = photo || graphicUrl;
+      img.addEventListener('error', () => {
+        if (img.src !== graphicUrl) img.src = graphicUrl;
+      });
+
+      article.innerHTML = `
+        <div class="insight-type">${esc(card.category || 'Business & technology')}</div>
+        <h3>${esc(card.title || 'Business insight')}</h3>
+        <div class="insight-label">THE CHALLENGE</div>
+        <p>${esc(card.problem || '')}</p>
+        <div class="insight-label">A PRACTICAL NEXT STEP</div>
+        <p class="insight-solution">${esc(card.solution || '')}</p>
+        <div class="insight-footer">
+          <span>${isNews ? 'LATEST NEWS' : 'PRACTICAL GUIDE'}</span>
+          <span>${esc(card.published_at || '')}</span>
+          <span>${esc(card.publisher || '')}</span>
+          ${isNews && source
+            ? `<a class="insight-source" href="${esc(source)}" target="_blank" rel="noopener noreferrer">Original article ↗</a>`
+            : ''}
+        </div>
+        <a class="insight-enquiry" href="#contact">Discuss a similar challenge ↗</a>
+      `;
+
+      article.prepend(img);
+      track.appendChild(article);
+    });
+
+    /* Move by one card; wrap at both ends so the slider never gets stuck. */
+    let index = 0;
+    let visible = 3;
+
+    const measure = () => {
+      visible = window.matchMedia('(max-width: 700px)').matches ? 1
+        : window.matchMedia('(max-width: 1000px)').matches ? 2 : 3;
+
+      index = Math.min(index, Math.max(0, cards.length - visible));
+      render();
+    };
+
+    const render = () => {
+      const first = track.querySelector('.insight-card');
+      if (!first) return;
+
+      const styles = getComputedStyle(track);
+      const gap = parseFloat(styles.columnGap || styles.gap) || 0;
+      const distance = first.getBoundingClientRect().width + gap;
+      const maxIndex = Math.max(0, cards.length - visible);
+
+      track.style.transform = `translateX(${-index * distance}px)`;
+      prev.disabled = false;
+      next.disabled = false;
+
+      /* If there are fewer cards than the visible slots, don't move. */
+      if (cards.length <= visible) {
+        prev.disabled = true;
+        next.disabled = true;
+      }
+
+      prev.setAttribute('aria-label', 'Previous article');
+      next.setAttribute('aria-label', 'Next article');
+    };
+
+    next.addEventListener('click', () => {
+      const maxIndex = Math.max(0, cards.length - visible);
+      index = index >= maxIndex ? 0 : index + 1;
+      render();
+    });
+
+    prev.addEventListener('click', () => {
+      const maxIndex = Math.max(0, cards.length - visible);
+      index = index <= 0 ? maxIndex : index - 1;
+      render();
+    });
+
+    window.addEventListener('resize', measure);
+    requestAnimationFrame(measure);
+
+    const needField = document.getElementById('need');
+    grid.addEventListener('click', event => {
+      if (!event.target.closest('.insight-enquiry')) return;
+      if (needField) {
+        const option = Array.from(needField.options).find(o =>
+          /managed project support/i.test(o.text) ||
+          /managed project support/i.test(o.value)
+        );
+        if (option) needField.value = option.value;
+      }
+    });
+
+    if (updated) {
+      updated.textContent = payload.updated_at
+        ? 'Updated ' + payload.updated_at
+        : 'Business insights';
+    }
+  } catch (error) {
+    console.error('Business insights error:', error);
+    grid.innerHTML = `
+      <article class="insight-card">
+        <div class="insight-type">ZERO POINT ONE</div>
+        <h3>Business problems. Smarter solutions.</h3>
+        <p>Practical technology ideas to help businesses work better.</p>
+        <a class="insight-enquiry" href="#contact">Discuss your project ↗</a>
+      </article>`;
+    if (updated) updated.textContent = 'Business insights';
+  }
+}
+
 
   const getService = cardText => {
     if (/cybersecurity|security|hack|malware|phishing|ransomware|vulnerability/i.test(cardText)) {
