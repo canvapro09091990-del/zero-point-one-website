@@ -256,7 +256,7 @@ function renderBusinessInsightCard(card) {
         loading="lazy"
         decoding="async"
         referrerpolicy="no-referrer"
-        onerror="this.hidden=true"
+        onerror="this.hidden=true; console.error('Insight image failed:', this.src)"
       >
     `
     : '';
