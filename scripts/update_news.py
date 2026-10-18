@@ -257,20 +257,22 @@ def main():
         category = categorize(" " + article["title"].lower() + " ")
         problem, solution = make_problem_solution(category)
 
-       news_cards.append({
-    "type": "news",
-    "category": category,
-    "title": article["title"],
-    "problem": problem,
-    "solution": solution,
-    "publisher": article["publisher"],
-    "published_at": article["published_at"],
-    "source_url": article["source_url"],
-    "image_url": CATEGORY_IMAGES.get(
-        category,
-        CATEGORY_IMAGES["Technology & Business"]
-    ),
-})
+       
+    news_cards.append({
+        "type": "news",
+        "category": category,
+        "title": article["title"],
+        "problem": problem,
+        "solution": solution,
+        "publisher": article["publisher"],
+        "published_at": article["published_at"],
+        "source_url": article["source_url"],
+        "image_url": CATEGORY_IMAGES.get(
+            category,
+            CATEGORY_IMAGES["Technology & Business"]
+        ),
+    })
+
     if not news_cards:
         print("No usable recent articles found. Keeping existing cards.")
         return
