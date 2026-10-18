@@ -20,7 +20,29 @@ FEEDS = [
 MAX_NEWS = 3
 MAX_CARDS = 5
 MAX_AGE_DAYS = 14
-
+# Default images for automatically generated news cards.
+CATEGORY_IMAGES = {
+    "Cybersecurity": (
+        "https://images.unsplash.com/photo-1550751827-4bd374c3f58b"
+        "?auto=format&fit=crop&w=700&q=80"
+    ),
+    "Artificial Intelligence": (
+        "https://images.unsplash.com/photo-1677442136019-21780ecad995"
+        "?auto=format&fit=crop&w=700&q=80"
+    ),
+    "Cloud & Infrastructure": (
+        "https://images.unsplash.com/photo-1451187580459-43490279c0fa"
+        "?auto=format&fit=crop&w=700&q=80"
+    ),
+    "Software & Development": (
+        "https://images.unsplash.com/photo-1518770660439-4636190af475"
+        "?auto=format&fit=crop&w=700&q=80"
+    ),
+    "Technology & Business": (
+        "https://images.unsplash.com/photo-1460925895917-afdab827c52f"
+        "?auto=format&fit=crop&w=700&q=80"
+    ),
+}
 
 def clean_text(value):
     value = html.unescape(value or "")
@@ -235,17 +257,20 @@ def main():
         category = categorize(" " + article["title"].lower() + " ")
         problem, solution = make_problem_solution(category)
 
-        news_cards.append({
-            "type": "news",
-            "category": category,
-            "title": article["title"],
-            "problem": problem,
-            "solution": solution,
-            "publisher": article["publisher"],
-            "published_at": article["published_at"],
-            "source_url": article["source_url"],
-        })
-
+       news_cards.append({
+    "type": "news",
+    "category": category,
+    "title": article["title"],
+    "problem": problem,
+    "solution": solution,
+    "publisher": article["publisher"],
+    "published_at": article["published_at"],
+    "source_url": article["source_url"],
+    "image_url": CATEGORY_IMAGES.get(
+        category,
+        CATEGORY_IMAGES["Technology & Business"]
+    ),
+})
     if not news_cards:
         print("No usable recent articles found. Keeping existing cards.")
         return
