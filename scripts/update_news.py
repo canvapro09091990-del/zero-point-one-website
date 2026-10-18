@@ -291,6 +291,12 @@ def main():
         "publisher": article["publisher"],
         "published_at": article["published_at"],
         "source_url": article["source_url"],
+        
+        "image_url": CATEGORY_IMAGES.get(
+            category,
+            CATEGORY_IMAGES["Technology & Business"]
+        ),
+
         "image_url": CATEGORY_IMAGES.get(
             category,
             CATEGORY_IMAGES["Technology & Business"]
