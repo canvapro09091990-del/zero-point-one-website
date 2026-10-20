@@ -1,16 +1,16 @@
 {
-  "updated_at": "19 October 2026",
+  "updated_at": "20 October 2026",
   "cards": [
     {
       "type": "news",
-      "category": "Cybersecurity",
-      "title": "Hackers exploit SiteGuard WAF flaw to run commands as admins",
-      "problem": "Businesses need to keep systems, customer data and accounts protected as security risks evolve.",
-      "solution": "Review access controls, update software, maintain backups and create a clear incident-response process.",
-      "publisher": "BleepingComputer",
-      "published_at": "18 October 2026",
-      "source_url": "https://www.bleepingcomputer.com/news/security/hackers-exploit-siteguard-waf-flaw-to-run-commands-as-system-root/",
-      "image_url": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=700&q=80"
+      "category": "Artificial Intelligence",
+      "title": "Embedded AI evaluators won’t be an easy solution, Hugging Face’s policy chief says",
+      "problem": "Businesses may struggle to identify where new AI tools can save time without introducing unnecessary risk.",
+      "solution": "Start with one measurable workflow, check data privacy and verify AI-generated results before relying on them.",
+      "publisher": "AI News & Artificial Intelligence | TechCrunch",
+      "published_at": "19 October 2026",
+      "source_url": "https://techcrunch.com/2026/10/19/embedded-ai-evaluators-wont-be-an-easy-solution-hugging-faces-policy-chief-says/",
+      "image_url": "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=700&q=80"
     },
     {
       "type": "evergreen",
