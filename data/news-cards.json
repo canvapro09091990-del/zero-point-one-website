@@ -1,15 +1,15 @@
 {
-  "updated_at": "20 October 2026",
+  "updated_at": "21 October 2026",
   "cards": [
     {
       "type": "news",
       "category": "Artificial Intelligence",
-      "title": "Embedded AI evaluators won’t be an easy solution, Hugging Face’s policy chief says",
+      "title": "Anthropic pitches AI safety bill that may block a model if 50+ people could be killed",
       "problem": "Businesses may struggle to identify where new AI tools can save time without introducing unnecessary risk.",
       "solution": "Start with one measurable workflow, check data privacy and verify AI-generated results before relying on them.",
       "publisher": "AI News & Artificial Intelligence | TechCrunch",
-      "published_at": "19 October 2026",
-      "source_url": "https://techcrunch.com/2026/10/19/embedded-ai-evaluators-wont-be-an-easy-solution-hugging-faces-policy-chief-says/",
+      "published_at": "20 October 2026",
+      "source_url": "https://techcrunch.com/2026/10/20/anthropic-pitches-ai-safety-bill-that-may-block-a-model-if-50-people-could-be-killed/",
       "image_url": "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=700&q=80"
     },
     {
