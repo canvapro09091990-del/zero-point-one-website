@@ -1,16 +1,16 @@
 {
-  "updated_at": "23 October 2026",
+  "updated_at": "24 October 2026",
   "cards": [
     {
       "type": "news",
-      "category": "Cybersecurity",
-      "title": "Railway warns devs to rotate secrets after potential breach",
-      "problem": "Businesses need to keep systems, customer data and accounts protected as security risks evolve.",
-      "solution": "Review access controls, update software, maintain backups and create a clear incident-response process.",
+      "category": "Software & Development",
+      "title": "Abandoned Popcorn Time app exposed millions of devices to RCE attacks",
+      "problem": "Businesses need reliable software that meets user needs and can be maintained as requirements change.",
+      "solution": "Define requirements, test key user journeys and use staged releases with clear ownership.",
       "publisher": "BleepingComputer",
-      "published_at": "22 October 2026",
-      "source_url": "https://www.bleepingcomputer.com/news/security/railway-warns-devs-to-rotate-secrets-after-potential-breach/",
-      "image_url": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=700&q=80"
+      "published_at": "23 October 2026",
+      "source_url": "https://www.bleepingcomputer.com/news/security/abandoned-popcorn-time-app-exposed-millions-of-device-to-rce-attacks/",
+      "image_url": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=700&q=80"
     },
     {
       "type": "evergreen",
