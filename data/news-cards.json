@@ -1,16 +1,16 @@
 {
-  "updated_at": "24 October 2026",
+  "updated_at": "25 October 2026",
   "cards": [
     {
       "type": "news",
-      "category": "Software & Development",
-      "title": "Abandoned Popcorn Time app exposed millions of devices to RCE attacks",
-      "problem": "Businesses need reliable software that meets user needs and can be maintained as requirements change.",
-      "solution": "Define requirements, test key user journeys and use staged releases with clear ownership.",
-      "publisher": "BleepingComputer",
-      "published_at": "23 October 2026",
-      "source_url": "https://www.bleepingcomputer.com/news/security/abandoned-popcorn-time-app-exposed-millions-of-device-to-rce-attacks/",
-      "image_url": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=700&q=80"
+      "category": "Artificial Intelligence",
+      "title": "Forced to pick, Grok’s AI model chooses Republicans. OpenAI’s picks Democrats.",
+      "problem": "Businesses may struggle to identify where new AI tools can save time without introducing unnecessary risk.",
+      "solution": "Start with one measurable workflow, check data privacy and verify AI-generated results before relying on them.",
+      "publisher": "AI News & Artificial Intelligence | TechCrunch",
+      "published_at": "24 October 2026",
+      "source_url": "https://techcrunch.com/2026/10/24/forced-to-pick-groks-ai-model-chooses-republicans-openais-picks-democrats/",
+      "image_url": "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=700&q=80"
     },
     {
       "type": "evergreen",
