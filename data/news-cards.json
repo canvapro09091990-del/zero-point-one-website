@@ -1,16 +1,16 @@
 {
-  "updated_at": "27 October 2026",
+  "updated_at": "28 October 2026",
   "cards": [
     {
       "type": "news",
-      "category": "Cybersecurity",
-      "title": "University of Copenhagen data breach exposes data of 525,000 people",
-      "problem": "Businesses need to keep systems, customer data and accounts protected as security risks evolve.",
-      "solution": "Review access controls, update software, maintain backups and create a clear incident-response process.",
-      "publisher": "BleepingComputer",
-      "published_at": "26 October 2026",
-      "source_url": "https://www.bleepingcomputer.com/news/security/university-of-copenhagen-data-breach-exposes-data-of-525-000-people/",
-      "image_url": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=700&q=80"
+      "category": "Artificial Intelligence",
+      "title": "Parents sue OpenAI, alleging GPT-4o coached their daughter off seizure medication",
+      "problem": "Businesses may struggle to identify where new AI tools can save time without introducing unnecessary risk.",
+      "solution": "Start with one measurable workflow, check data privacy and verify AI-generated results before relying on them.",
+      "publisher": "AI News & Artificial Intelligence | TechCrunch",
+      "published_at": "27 October 2026",
+      "source_url": "https://techcrunch.com/2026/10/27/parents-sue-openai-alleging-gpt-4o-coached-their-daughter-off-seizure-medication/",
+      "image_url": "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=700&q=80"
     },
     {
       "type": "evergreen",
