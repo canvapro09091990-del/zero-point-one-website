@@ -1,16 +1,16 @@
 {
-  "updated_at": "30 October 2026",
+  "updated_at": "31 October 2026",
   "cards": [
     {
       "type": "news",
-      "category": "Artificial Intelligence",
-      "title": "OpenAI doubles ChatGPT Pro usage limits after backlash over planned 50% cut",
-      "problem": "Businesses may struggle to identify where new AI tools can save time without introducing unnecessary risk.",
-      "solution": "Start with one measurable workflow, check data privacy and verify AI-generated results before relying on them.",
-      "publisher": "BleepingComputer",
-      "published_at": "29 October 2026",
-      "source_url": "https://www.bleepingcomputer.com/news/artificial-intelligence/openai-doubles-chatgpt-pro-usage-limits-after-backlash-over-planned-50-percent-cut/",
-      "image_url": "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=700&q=80"
+      "category": "Technology & Business",
+      "title": "Intel’s stock crashes, knocking $12B from government’s stake",
+      "problem": "Keeping up with technology changes can make it difficult to decide what deserves attention first.",
+      "solution": "Assess the business impact, validate the source and prioritize changes against measurable goals.",
+      "publisher": "AI News & Artificial Intelligence | TechCrunch",
+      "published_at": "30 October 2026",
+      "source_url": "https://techcrunch.com/2026/10/30/intels-stock-crashes-knocking-12b-from-governments-stake/",
+      "image_url": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=700&q=80"
     },
     {
       "type": "evergreen",
