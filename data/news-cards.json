@@ -1,16 +1,16 @@
 {
-  "updated_at": "31 October 2026",
+  "updated_at": "01 November 2026",
   "cards": [
     {
       "type": "news",
-      "category": "Technology & Business",
-      "title": "Intel’s stock crashes, knocking $12B from government’s stake",
-      "problem": "Keeping up with technology changes can make it difficult to decide what deserves attention first.",
-      "solution": "Assess the business impact, validate the source and prioritize changes against measurable goals.",
+      "category": "Cloud & Infrastructure",
+      "title": "Judge allows NAACP lawsuit over xAI data center pollution to move forward",
+      "problem": "Service disruptions and cloud costs can affect business continuity and application performance.",
+      "solution": "Monitor availability and costs, document backups and test recovery procedures regularly.",
       "publisher": "AI News & Artificial Intelligence | TechCrunch",
-      "published_at": "30 October 2026",
-      "source_url": "https://techcrunch.com/2026/10/30/intels-stock-crashes-knocking-12b-from-governments-stake/",
-      "image_url": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=700&q=80"
+      "published_at": "31 October 2026",
+      "source_url": "https://techcrunch.com/2026/10/31/judge-allows-naacp-lawsuit-over-xai-data-center-pollution-to-move-forward/",
+      "image_url": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=700&q=80"
     },
     {
       "type": "evergreen",
