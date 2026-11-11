@@ -1,16 +1,16 @@
 {
-  "updated_at": "10 November 2026",
+  "updated_at": "11 November 2026",
   "cards": [
     {
       "type": "news",
-      "category": "Technology & Business",
-      "title": "Jensen Huang reportedly engaged a PR firm with a history of handling high-profile sex scandals a year ago",
-      "problem": "Keeping up with technology changes can make it difficult to decide what deserves attention first.",
-      "solution": "Assess the business impact, validate the source and prioritize changes against measurable goals.",
-      "publisher": "AI News & Artificial Intelligence | TechCrunch",
-      "published_at": "09 November 2026",
-      "source_url": "https://techcrunch.com/2026/11/09/jensen-huang-reportedly-engaged-a-pr-firm-with-a-history-of-handling-high-profile-sex-scandals-a-year-ago/",
-      "image_url": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=700&q=80"
+      "category": "Cybersecurity",
+      "title": "Japanese furniture giant Nitori says hackers stole 37.6M customer records",
+      "problem": "Businesses need to keep systems, customer data and accounts protected as security risks evolve.",
+      "solution": "Review access controls, update software, maintain backups and create a clear incident-response process.",
+      "publisher": "BleepingComputer",
+      "published_at": "10 November 2026",
+      "source_url": "https://www.bleepingcomputer.com/news/security/japanese-furniture-giant-nitori-says-hackers-stole-376m-customer-records/",
+      "image_url": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=700&q=80"
     },
     {
       "type": "evergreen",
