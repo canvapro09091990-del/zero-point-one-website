@@ -1,16 +1,16 @@
 {
-  "updated_at": "12 November 2026",
+  "updated_at": "13 November 2026",
   "cards": [
     {
       "type": "news",
-      "category": "Technology & Business",
-      "title": "Nvidia’s stock drops as board reportedly preps to oust CEO Jensen Huang",
-      "problem": "Keeping up with technology changes can make it difficult to decide what deserves attention first.",
-      "solution": "Assess the business impact, validate the source and prioritize changes against measurable goals.",
-      "publisher": "AI News & Artificial Intelligence | TechCrunch",
-      "published_at": "11 November 2026",
-      "source_url": "https://techcrunch.com/2026/11/11/nvidias-stock-drops-as-board-reportedly-preps-to-oust-ceo-jensen-huang/",
-      "image_url": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=700&q=80"
+      "category": "Cybersecurity",
+      "title": "Hackers compromise 4,800 GitHub accounts to steal cloud credentials",
+      "problem": "Businesses need to keep systems, customer data and accounts protected as security risks evolve.",
+      "solution": "Review access controls, update software, maintain backups and create a clear incident-response process.",
+      "publisher": "BleepingComputer",
+      "published_at": "12 November 2026",
+      "source_url": "https://www.bleepingcomputer.com/news/security/hackers-compromise-4-800-github-accounts-to-steal-cloud-credentials/",
+      "image_url": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=700&q=80"
     },
     {
       "type": "evergreen",
