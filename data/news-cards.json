@@ -1,16 +1,16 @@
 {
-  "updated_at": "16 November 2026",
+  "updated_at": "17 November 2026",
   "cards": [
     {
       "type": "news",
-      "category": "Artificial Intelligence",
-      "title": "Amazon Uncovers AI Agent Campaign Targeting LiteLLM, Dify, and Other Apps for API Keys",
-      "problem": "Businesses may struggle to identify where new AI tools can save time without introducing unnecessary risk.",
-      "solution": "Start with one measurable workflow, check data privacy and verify AI-generated results before relying on them.",
-      "publisher": "The Hacker News",
-      "published_at": "16 November 2026",
-      "source_url": "https://thehackernews.com/2026/11/amazon-uncovers-ai-agent-campaign.html",
-      "image_url": "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=700&q=80"
+      "category": "Cybersecurity",
+      "title": "Ransomware affiliate suspect extradited to US, faces 27 years in prison",
+      "problem": "Businesses need to keep systems, customer data and accounts protected as security risks evolve.",
+      "solution": "Review access controls, update software, maintain backups and create a clear incident-response process.",
+      "publisher": "BleepingComputer",
+      "published_at": "17 November 2026",
+      "source_url": "https://www.bleepingcomputer.com/news/security/alleged-inc-lynx-ransomware-affiliate-extradited-to-us-faces-27-years-in-prison/",
+      "image_url": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=700&q=80"
     },
     {
       "type": "evergreen",
