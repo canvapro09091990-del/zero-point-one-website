@@ -1,16 +1,16 @@
 {
-  "updated_at": "17 November 2026",
+  "updated_at": "18 November 2026",
   "cards": [
     {
       "type": "news",
-      "category": "Cybersecurity",
-      "title": "Ransomware affiliate suspect extradited to US, faces 27 years in prison",
-      "problem": "Businesses need to keep systems, customer data and accounts protected as security risks evolve.",
-      "solution": "Review access controls, update software, maintain backups and create a clear incident-response process.",
-      "publisher": "BleepingComputer",
-      "published_at": "17 November 2026",
-      "source_url": "https://www.bleepingcomputer.com/news/security/alleged-inc-lynx-ransomware-affiliate-extradited-to-us-faces-27-years-in-prison/",
-      "image_url": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=700&q=80"
+      "category": "Technology & Business",
+      "title": "CISA Urges Immediate Patching of Java4Shell Flaw That Could Allow Remote Code Execution",
+      "problem": "Keeping up with technology changes can make it difficult to decide what deserves attention first.",
+      "solution": "Assess the business impact, validate the source and prioritize changes against measurable goals.",
+      "publisher": "The Hacker News",
+      "published_at": "18 November 2026",
+      "source_url": "https://thehackernews.com/2026/11/cisa-urges-immediate-patching-of.html",
+      "image_url": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=700&q=80"
     },
     {
       "type": "evergreen",
