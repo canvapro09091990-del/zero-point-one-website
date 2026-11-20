@@ -1,16 +1,16 @@
 {
-  "updated_at": "19 November 2026",
+  "updated_at": "20 November 2026",
   "cards": [
     {
       "type": "news",
-      "category": "Cloud & Infrastructure",
-      "title": "Ruby Releases Fixes for 7 Regex and String Flaws, Warns 5 Have Proof-of-Concept RCE",
-      "problem": "Service disruptions and cloud costs can affect business continuity and application performance.",
-      "solution": "Monitor availability and costs, document backups and test recovery procedures regularly.",
+      "category": "Technology & Business",
+      "title": "ROMULUS ClickFix Attacks Deliver RAT That Can Spy on Users and Control PCs",
+      "problem": "Keeping up with technology changes can make it difficult to decide what deserves attention first.",
+      "solution": "Assess the business impact, validate the source and prioritize changes against measurable goals.",
       "publisher": "The Hacker News",
-      "published_at": "19 November 2026",
-      "source_url": "https://thehackernews.com/2026/11/ruby-releases-fixes-for-7-regex-and.html",
-      "image_url": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=700&q=80"
+      "published_at": "20 November 2026",
+      "source_url": "https://thehackernews.com/2026/11/romulus-clickfix-attacks-deliver-rat.html",
+      "image_url": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=700&q=80"
     },
     {
       "type": "evergreen",
