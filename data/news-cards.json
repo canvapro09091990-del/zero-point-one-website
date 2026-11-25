@@ -1,15 +1,15 @@
 {
-  "updated_at": "24 November 2026",
+  "updated_at": "25 November 2026",
   "cards": [
     {
       "type": "news",
       "category": "Cybersecurity",
-      "title": "OpenAI and Cisco Unveil AI-Assisted Linux Security Tool to Block Exploits Before Patching",
+      "title": "Hackers now exploit critical Drupal RCE flaw to hijack sites",
       "problem": "Businesses need to keep systems, customer data and accounts protected as security risks evolve.",
       "solution": "Review access controls, update software, maintain backups and create a clear incident-response process.",
-      "publisher": "The Hacker News",
-      "published_at": "24 November 2026",
-      "source_url": "https://thehackernews.com/2026/11/openai-and-cisco-unveil-ai-assisted.html",
+      "publisher": "BleepingComputer",
+      "published_at": "25 November 2026",
+      "source_url": "https://www.bleepingcomputer.com/news/security/hackers-now-exploit-critical-drupal-rce-flaw-to-hijack-sites/",
       "image_url": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=700&q=80"
     },
     {
