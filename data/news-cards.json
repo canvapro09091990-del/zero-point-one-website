@@ -1,16 +1,16 @@
 {
-  "updated_at": "26 November 2026",
+  "updated_at": "27 November 2026",
   "cards": [
     {
       "type": "news",
-      "category": "Cybersecurity",
-      "title": "1Password Hacked, Customer Data and Source Code Stolen in GitHub Account Breach",
-      "problem": "Businesses need to keep systems, customer data and accounts protected as security risks evolve.",
-      "solution": "Review access controls, update software, maintain backups and create a clear incident-response process.",
-      "publisher": "The Hacker News",
-      "published_at": "26 November 2026",
-      "source_url": "https://thehackernews.com/2026/11/1password-hacked-customer-data-and.html",
-      "image_url": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=700&q=80"
+      "category": "Cloud & Infrastructure",
+      "title": "Microsoft pushes emergency hotpatch to fix Windows Server crashes",
+      "problem": "Service disruptions and cloud costs can affect business continuity and application performance.",
+      "solution": "Monitor availability and costs, document backups and test recovery procedures regularly.",
+      "publisher": "BleepingComputer",
+      "published_at": "27 November 2026",
+      "source_url": "https://www.bleepingcomputer.com/news/microsoft/new-out-of-band-oob-emergency-hotpatch-fixes-windows-server-2025-crashes/",
+      "image_url": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=700&q=80"
     },
     {
       "type": "evergreen",
